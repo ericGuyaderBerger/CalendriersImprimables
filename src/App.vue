@@ -1,28 +1,27 @@
 <template>
-  <div id="app">
-    <img src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app" class="container">
+    <h1>
+      <i class="fa fa-calendar text-danger"></i>
+      Roche &amp; Fils - Calendriers imprimables
+    </h1>
+    <Selection />
+    <PrintableCalendars />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import PrintableCalendars from './components/PrintableCalendars.vue'
+import Selection from './components/Selection.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Selection,
+    PrintableCalendars
   }
 }
 </script>
 
 <style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
