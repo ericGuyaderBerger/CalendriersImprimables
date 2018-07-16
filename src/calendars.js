@@ -112,10 +112,22 @@ let CalendarTools = {
           }) 
         }).then( () => resolve(ret) );
     });
+  },
+  /**
+   * Renvoie les événements des calendriers des travaux
+   * @param {google.client} gapi 
+   * @param {Date} start 
+   * @param {Date} end 
+   */
+  getPlanedEvents(gapi,start,end){
+    return new Promise( (resolve,reject) => {
+      let nomCalendrier = 'Chantiers';
+      let calIdProm = this.calendarIdFromName(gapi,nomCalendrier);
+      calIdProm.then( id => {
+        resolve(this.getEvents(gapi,id,start,end))
+      }).catch( (reason) => reject(reason) );
+    });
   }
 };
 
 export default CalendarTools; 
-// let employesProm = CalendarTools.getEmployesDistincts(new Date('2018-07-16'),new Date('2018-07-20'));
-// employesProm.then(employes => employes.forEach( emp => console.log(emp)));
-// employesProm.then( employes => console.log(employes) );
