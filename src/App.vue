@@ -21,21 +21,21 @@ export default {
     PrintableCalendars
   },
   data(){
-    let employes = []
-    this.$getGapiClient()
-      .then(gapi => {
-        // console.log(gapi)
-        gapi.auth2.getAuthInstance().signIn().then( () => {
-          CalendarTools
-            .getEmployesDistincts(gapi,new Date('2018-07-16'),new Date('2018-07-20'))
-            .then( distEmps => {
-              // console.log( distEmps )
-              employes = distEmps 
-            })
-        })
-      })
-      .catch( err => console.log(err) )
-
+    // let employes = []
+    // this.$getGapiClient()
+    //   .then(gapi => {
+    //     // console.log(gapi)
+    //     gapi.auth2.getAuthInstance().signIn().then( () => {
+    //       CalendarTools
+    //         .getEmployesDistincts(gapi,new Date('2018-07-16'),new Date('2018-07-20'))
+    //         .then( distEmps => {
+    //           // console.log( distEmps )
+    //           employes = distEmps 
+    //         })
+    //     })
+    //   })
+    //   .catch( err => console.log(err) )
+    let employes = ["YARECK","JOEL","JEAN-CLAUDE","BENOIT","BENJAMIN","PHILIPPE","DISANT","PHIL"];
     return {employes:employes}
   },
 }
