@@ -5,17 +5,18 @@
       <h4>
         {{salarie.nom}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
       </h4>
-      <table>
-
-      </table>
+      <WeekCalendar salarie="salarie" debut="debut" />
     </div>
   </div>
 </template>
 
 <script>
+  import WeekCalendar from '@/components/WeekCalendar.vue'
+
   export default {
     name: 'PrintableCalendars',
     props: ['salaries','debut','fin'],
+    components:{WeekCalendar},
     filters: {
       dateFr(date){
         const dt = new Date(date);
