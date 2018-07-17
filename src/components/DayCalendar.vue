@@ -1,7 +1,9 @@
 <template>
-  <div class="calendar-day col-2">
-    <h5>{{ dateJour }}</h5>
-    <EmployeeTasks v-for="employe in employesAvecTaches" :key="employe.nom" :employe="employe" :employeCalendrier="employeCalendrier" />
+  <div class="col-2 p-1">
+    <div class="calendar-day">
+      <h5>{{ dateJour }}</h5>
+      <EmployeeTasks v-for="employe in employesAvecTaches" :key="employe.nom" :employe="employe" :employeCalendrier="employeCalendrier" />
+    </div>
   </div>
 </template>
 <script>
@@ -13,8 +15,8 @@
     props: ['jour','debut','employeCalendrier'],
     data(){
       return { employesAvecTaches: [
-          {nom:"YARECK",taches:[{lieu:"EXEDRA",type:"Chantiers"},{lieu:"MPOSS",type:"Chantiers"}]},
-          {nom:"JOEL",taches:[{lieu:"F. VERDIER, n°9",type:"Chantiers"},{lieu:"AXA",type:"Vitres"}]},
+          {nom:"YARECK",taches:[{lieu:"EXEDRA",type:"Chantiers",couleur:"#ff0"},{lieu:"MPOSS",type:"Chantiers",couleur:"#ff0"}]},
+          {nom:"JOEL",taches:[{lieu:"F. VERDIER, n°9",type:"Chantiers",couleur:"#ff0"},{lieu:"AXA",type:"Vitres",couleur:"#00a"}]},
         ] 
       }
     },

@@ -1,9 +1,7 @@
 <template>
-    <div class="taches-employes" :class="{'inactive':employe.nom !== employeCalendrier.nom}">
+    <div class="taches-employe" :class="{'active':employe.nom === employeCalendrier.nom}">
       <h6> <i class="fa fa-user"></i> {{ employe.nom }} </h6>
-      <div v-for="tache in employe.taches" :key="tache.index" class="tache">
-        <p> <i class="fa fa-square"></i> {{ tache.lieu }}</p>
-      </div>
+      <p v-for="tache in employe.taches" :key="tache.index" class="tache"> <i class="fa fa-square" :style="{color:tache.couleur}"></i> {{ tache.lieu }}</p>
     </div>  
 </template>
 <script>
@@ -16,8 +14,22 @@
   }
 </script>
 <style scoped>
-  .inactive{
-    color:#999;
+  .taches-employe{
+    margin:1em 0;
+  }
+
+  .taches-employe:not(.active){
+    opacity: 0.25;
+  }
+
+  .active{
+    color:#000;
+    background:lightpink;
+    border-radius:5px;
+  }
+
+  .tache{
+    margin:0.1em;
   }
 </style>
 
