@@ -1,6 +1,6 @@
 <template>
   <div class="calendar-day col-2">
-    <h5>Jour {{ jour }}</h5>
+    <h5>{{ dateJour }}</h5>
     <EmployeeTasks v-for="employe in employesAvecTaches" :key="employe.nom" />
   </div>
 </template>
@@ -10,9 +10,17 @@
   export default {
     components:{EmployeeTasks},
     name:'DayCalendar',
-    props: ['jour'],
+    props: ['jour','debut'],
     data(){
       return { employesAvecTaches: [{nom:"YARECK",taches:[{lieu:"EXEDRA",type:"Chantiers"},{lieu:"MPOSS",type:"Chantiers"}]}] }
+    },
+    computed: {
+      dateJour(){
+        let dt = new Date(this.debut);
+        let jours = ["lundi", "mardi","mercredi","jeudi","vendredi","samedi"];
+        dt.setDate(dt.getDate() + this.jour )
+        return jours[dt.getDay() - 1] + ' ' + dt.getDate();
+      }
     }
   }
 </script>

@@ -5,7 +5,7 @@
       <h4>
         {{salarie.nom}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
       </h4>
-      <WeekCalendar salarie="salarie" debut="debut" />
+      <WeekCalendar :salarie="salarie" :debut="debut" />
     </div>
   </div>
 </template>
