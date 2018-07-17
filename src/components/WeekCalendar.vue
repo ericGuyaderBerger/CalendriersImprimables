@@ -1,6 +1,6 @@
 <template>
   <div class="calendar-week row">
-    <DayCalendar v-for="day of [0,1,2,3,4,5]" :key="day"/>
+    <DayCalendar v-for="jour of [0,1,2,3,4,5]" :key="jour" :jour="jour"/>
   </div>
 </template>
 <script>
