@@ -3,7 +3,7 @@
     <h2>Impression</h2>
     <div class="calendar" v-for="salarie in salaries" :key="salarie.nom">
       <h4>
-        {{salarie.nom}}, du 9 juillet 2018 au 14 juillet 2018
+        {{salarie.nom}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
       </h4>
       <table>
 
@@ -15,7 +15,14 @@
 <script>
   export default {
     name: 'PrintableCalendars',
-    props: ['salaries']
+    props: ['salaries','debut','fin'],
+    filters: {
+      dateFr(date){
+        const dt = new Date(date);
+        const moisFr = ['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre']
+        return dt.getDate() + ' ' + moisFr[dt.getMonth()] + ' ' + dt.getFullYear();
+      }
+    }
   }
 </script>
 

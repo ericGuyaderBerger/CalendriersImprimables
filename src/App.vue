@@ -5,7 +5,7 @@
       Roche &amp; Fils - Calendriers imprimables
     </h1>
     <Selection />
-    <PrintableCalendars :salaries="employes"/>
+    <PrintableCalendars :salaries="employes" debut="2018-07-09" fin="2018-07-14" />
   </div>
 </template>
 
