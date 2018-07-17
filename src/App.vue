@@ -38,7 +38,7 @@ export default {
     //     })
     //   })
     //   .catch( err => console.log(err) )
-    let employes = ["YARECK","JOEL","JEAN-CLAUDE","BENOIT","BENJAMIN","PHILIPPE","DISANT","PHIL"];
+    let employes = [{nom:"YARECK"},{nom:"JOEL"},{nom:"JEAN-CLAUDE"},{nom:"BENOIT"},{nom:"BENJAMIN"},{nom:"PHILIPPE"},{nom:"DISANT"},{nom:"PHIL"}];
      let taches = [
     {
     "kind": "calendar#event",
