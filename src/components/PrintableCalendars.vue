@@ -15,8 +15,13 @@
 
   export default {
     name: 'PrintableCalendars',
-    props: ['salaries','debut','fin'],
+    props: ['salaries','debut'],
     components:{WeekCalendar},
+    data(){
+      let fin = new Date(this.debut)
+      fin.setDate(fin.getDate() + 5)
+      return {fin:fin}
+    },
     filters: {
       dateFr(date){
         const dt = new Date(date);

@@ -5,7 +5,7 @@
       Roche &amp; Fils - Calendriers imprimables
     </h1>
     <Selection />
-    <PrintableCalendars :salaries="employes" debut="2018-07-16" fin="2018-07-21" />
+    <PrintableCalendars :salaries="employes" :debut="debut" />
   </div>
 </template>
 
@@ -23,7 +23,8 @@ export default {
   data(){
     let employes = []
     let taches = []
-    return {employes:employes,taches:taches}
+    let debut = '2018-07-30'
+    return {employes:employes,taches:taches,debut:debut}
   },
   methods: {
     getEmployes() {
@@ -43,10 +44,29 @@ export default {
         })
       })
       .catch( err => console.log(err) )
+    },
+    getWeekTasks(start){
+      this.$getGapiClient()
+      .then(gapi => {
+        // console.log(gapi)
+        gapi.auth2.getAuthInstance().signIn().then( () => {
+          CalendarTools
+            // .getEmployesDistincts(gapi,new Date('2018-07-16'),new Date('2018-07-21'))
+            .getPlanedEvents(gapi,new Date('2018-07-16'),new Date('2018-07-20'))
+            .then( distTaches => {
+              // console.log( distEmps )
+              this.taches = distTaches
+              // console.log(employes)
+              // taches =  distEmps
+            })
+        })
+      })
+      .catch( err => console.log(err) )
     }
   },
   mounted(){
     this.getEmployes()
+    // this.getWeekTasks(this.debut)
   }
 }
 </script>
