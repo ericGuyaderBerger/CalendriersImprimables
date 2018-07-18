@@ -211,7 +211,7 @@ let CalendarTools = {
             // ret[dtProp].taches = []
           }
           if(tache.type === "Mains-d'oeuvre"){
-            ret[dtProp].push({employes:tache.intitule, taches:[]})
+            ret[dtProp].push({nom:tache.intitule, taches:[]})
             index++
           }else{
             ret[dtProp][index - 1].taches.push(tache)
