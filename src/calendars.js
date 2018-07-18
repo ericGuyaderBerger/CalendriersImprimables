@@ -14,6 +14,18 @@ let CalendarTools = {
    */
   calendarIdFromName(gapi,name) {
     return new Promise( (resolve,reject) => {
+      let calInfosProm = this.calendarInfosFromName(gapi,name);
+      calInfosProm.then(cal => resolve(cal.id))
+      .catch( err => reject('The API returned an error: ' + err) );
+    })
+  },
+/**
+   * Retourne les infos du calendrier à partir de son nom
+   * @param {String} name Le nom du calendrier
+   * @param {google.auth.OAuth2} auth  Un client oAuth2 autorisé
+   */
+  calendarInfosFromName(gapi,name) {
+    return new Promise( (resolve,reject) => {
       //const calendar = google.calendar({version: 'v3', auth});
       // console.log('ok calendarIdFromName')
       // console.log(gapi)
@@ -25,7 +37,7 @@ let CalendarTools = {
           // console.log(cal)
           if(cal.summary === name){
             // console.log(cal.id)
-            resolve(cal.id)
+            resolve(cal)
           }
         })
         reject('Calendar Not found')
@@ -48,8 +60,8 @@ let CalendarTools = {
       gapi.client.calendar.events.list(
         {
           calendarId:calId,
-          timeMin:start.toISOString(),
-          timeMax:end.toISOString()
+          timeMin:start.toISOString().replace('Z','+02:00'),
+          timeMax:end.toISOString().replace('Z','+02:00')
         }
       )
       .then( res  => {
@@ -62,6 +74,32 @@ let CalendarTools = {
       
     })
   },
+
+  getEventsForPlaning(gapi,cal,start,end){
+    return new Promise( (resolve,reject) => {
+      // let ret = []
+      //const calendar = google.calendar({version: 'v3', auth});
+      // console.log('ok getEvents, calId:', calId);
+      gapi.client.calendar.events.list(
+        {
+          calendarId:cal.id,
+          timeMin:start.toISOString().replace('Z','+02:00'),
+          timeMax:end.toISOString().replace('Z','+02:00')
+        }
+      )
+      .then( res  => {
+        // console.log(res)
+        const events = res.result.items;
+        events.map( event => event.cal=cal)
+        // console.log(events)
+        resolve(events);
+      })
+      .catch( err => reject('The API returned an error: ' + err) );
+      
+    })
+  },
+
+
 
   /**
    * Obtient les employés présents dans le calendrier entre deux dates
@@ -120,17 +158,68 @@ let CalendarTools = {
    * Renvoie les événements des calendriers des travaux
    * @param {google.client} gapi 
    * @param {Date} start 
-   * @param {Date} end 
+   * @param {Date} end
+   * @return {Object} 
    */
   getPlanedEvents(gapi,start){
     return new Promise( (resolve,reject) => {
-      let nomCalendrier = 'Chantiers'
+      let tasksCalendars = ['Mains-d\'oeuvre','Chantiers','Particuliers','Containers','Vitres','Rendez-vous !','Ponctuels','Travaux spéciaux','Sous-traitance','Contacts'];
       let end = new Date(start)
+      let ret = {}
+      
       end.setDate(end.getDate() + 5)
-      let calIdProm = this.calendarIdFromName(gapi,nomCalendrier);
-      calIdProm.then( id => {
-        resolve(this.getEvents(gapi,id,start,end))
-      }).catch( (reason) => reject(reason) );
+
+      let allPromises = tasksCalendars.map( calName => {
+        let calInfosProm = this.calendarInfosFromName(gapi,calName);
+        return calInfosProm.then( cal => {
+          return this.getEventsForPlaning(gapi,cal,start,end)
+            // .then( res => {
+            //   // console.log(res)
+            //   res.map( event => {
+            //     allEvents.push( {dateHeure:event.start.dateTime,intitule:event.summary,type:cal.summary,couleur:cal.backgroundColor}) 
+            //   })
+            // })
+            // .catch( (reason) => reject(reason) )
+        })
+        
+        .catch( (reason) => reject(reason) );
+      })
+      // console.log('allPromises:',allPromises)
+      let allEventsProm = Promise.all( allPromises )
+      
+      allEventsProm.then( (events) => {
+        let allEvents = []
+        let index = 0
+        // console.log(events)
+        events.forEach( evs => {
+          if (evs){ 
+            evs.map( event => {
+                
+                // if(allEvents.find( evt => evt.dateHeure===event.start.dateTime && evt.intitule === event.summary ) === undefined )
+                  allEvents.push( {dateHeure:event.start.dateTime,intitule:event.summary,type:event.cal.summary,couleur:event.cal.backgroundColor}) 
+                // console.log(allEvents)
+              })
+          }
+        })
+        allEvents.sort( (a,b) => new Date(a.dateHeure).getTime() - new Date(b.dateHeure).getTime() )
+        allEvents.map( event => {
+          let dtProp = event.dateHeure.substr(0,10)
+          let tache = event
+          
+          if( !ret[dtProp] ){
+            ret[dtProp] = []
+            // ret[dtProp].taches = []
+          }
+          if(tache.type === "Mains-d'oeuvre"){
+            ret[dtProp].push({employes:tache.intitule, taches:[]})
+            index++
+          }else{
+            ret[dtProp][index - 1].taches.push(tache)
+          }
+          // ret[dtProp].taches.push(event)
+        })
+        resolve(ret)  
+      })
     });
   }
 };

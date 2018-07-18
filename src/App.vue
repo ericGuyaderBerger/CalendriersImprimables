@@ -23,7 +23,7 @@ export default {
   data(){
     let employes = []
     let taches = []
-    let debut = '2018-12-31'
+    let debut = '2018-07-16'
     let gapi = {}
     return {employes:employes,taches:taches,debut:debut}
   },
@@ -32,18 +32,19 @@ export default {
       CalendarTools
         .getEmployesDistincts(this.gapi,new Date(this.debut))
         .then( distEmps => {
-          this.employes = distEmps
           // console.log(employes)
+          this.employes = distEmps
         })
         .catch( err => console.log(err) )
     },
     getWeekTasks(start){
-      CalendarTools
+      let TasksProm = CalendarTools
         .getPlanedEvents(this.gapi,new Date(this.debut))
+      // console.log(TasksProm)
+      TasksProm
         .then( distTaches => {
           // console.log( distTaches )
           this.taches = distTaches
-          
         })
         .catch( err => console.log(err) )
     }
