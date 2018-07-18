@@ -17,6 +17,10 @@
       return { employesAvecTaches: [
           {nom:"YARECK",taches:[{lieu:"EXEDRA",type:"Chantiers",couleur:"#ff0"},{lieu:"MPOSS",type:"Chantiers",couleur:"#ff0"}]},
           {nom:"JOEL",taches:[{lieu:"F. VERDIER, n°9",type:"Chantiers",couleur:"#ff0"},{lieu:"AXA",type:"Vitres",couleur:"#00a"}]},
+          {nom:"PHILIPPE + DISANT",taches:[{lieu:"EGIS MINI",type:"Chantiers",couleur:"#ff0"},{lieu:"LES AGATES",type:"Containers",couleur:"#0aa"},{lieu:"MATEOS",type:"Vitres",couleur:"#00a"}]},
+          {nom:"PHIL",taches:[{lieu:"VARSOVIE Hall",type:"Chantiers",couleur:"#ff0"},{lieu:"SAGESSE MINIMES",type:"Chantiers",couleur:"#ff0"}]},
+          {nom:"DISANT",taches:[{lieu:"PATRIMOINE DE FRANCE",type:"Chantiers",couleur:"#ff0"},{lieu:"LAFOURCADE",type:"Chantiers",couleur:"#ff0"}]},
+
         ] 
       }
     },
