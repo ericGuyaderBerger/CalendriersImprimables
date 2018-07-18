@@ -1,5 +1,5 @@
 <template>
-    <div class="taches-employe" :class="{'active': employe.nom.split(' + ').includes(employeCalendrier.nom) }">
+    <div class="taches-employe" :class="{'active': employe.nom.split(' + ').includes(employeCalendrier) }">
       <h6> <i class="fa fa-user" :class="{'fa-users': employe.nom.split(' + ').length > 1 }"></i> {{ employe.nom }} </h6>
       <p v-for="tache in employe.taches" :key="tache.index" class="tache"> <i class="fa fa-square" :style="{color:tache.couleur}"></i> {{ tache.lieu }}</p>
     </div>  

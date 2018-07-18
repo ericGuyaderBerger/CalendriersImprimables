@@ -110,7 +110,8 @@ let CalendarTools = {
               ret.add(empName) 
             }
           }) 
-        }).then( () => resolve(ret) );
+        })
+        .then( () => resolve([...ret]) );
     });
   },
   /**

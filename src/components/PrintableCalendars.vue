@@ -3,7 +3,7 @@
     <h2>Impression</h2>
     <div class="calendar" v-for="salarie in salaries" :key="salarie.nom">
       <h4>
-        {{salarie.nom}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
+        {{salarie}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
       </h4>
       <WeekCalendar :salarie="salarie" :debut="debut" />
     </div>
