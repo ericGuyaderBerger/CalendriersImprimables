@@ -120,9 +120,11 @@ let CalendarTools = {
    * @param {Date} start 
    * @param {Date} end 
    */
-  getPlanedEvents(gapi,start,end){
+  getPlanedEvents(gapi,start){
     return new Promise( (resolve,reject) => {
-      let nomCalendrier = 'Chantiers';
+      let nomCalendrier = 'Chantiers'
+      let end = new Date(start)
+      end.setDate(end.getDate() + 5)
       let calIdProm = this.calendarIdFromName(gapi,nomCalendrier);
       calIdProm.then( id => {
         resolve(this.getEvents(gapi,id,start,end))

@@ -23,7 +23,7 @@ export default {
   data(){
     let employes = []
     let taches = []
-    let debut = '2018-07-30'
+    let debut = '2018-12-31'
     return {employes:employes,taches:taches,debut:debut}
   },
   methods: {
@@ -52,9 +52,9 @@ export default {
         gapi.auth2.getAuthInstance().signIn().then( () => {
           CalendarTools
             // .getEmployesDistincts(gapi,new Date('2018-07-16'),new Date('2018-07-21'))
-            .getPlanedEvents(gapi,new Date('2018-07-16'),new Date('2018-07-20'))
+            .getPlanedEvents(gapi,new Date(this.debut))
             .then( distTaches => {
-              // console.log( distEmps )
+              console.log( distTaches )
               this.taches = distTaches
               // console.log(employes)
               // taches =  distEmps
