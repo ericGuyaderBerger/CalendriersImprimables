@@ -98,22 +98,22 @@ let CalendarTools = {
       let end = new Date(start)
       end.setDate(end.getDate() + 5)
       let employesProm = this.getEmployes(gapi,start,end)
-      employesProm.catch( reason => reject(reason) )
+      employesProm.catch( reason => reject(reason) );
       employesProm
         .then( employes => {
           // console.log(employes)
           employes.map( employe => {
-            let empName = employe.summary
+            let empName = employe.summary;
           
             if (empName.indexOf(SEP) > -1 ){
-              let emps = empName.split(SEP)
-              emps.forEach( emp => ret.add(emp) )
+              let emps = empName.split(SEP);
+              emps.forEach( emp => ret.add(emp) );
             } else {
               ret.add(empName) 
             }
           }) 
         })
-        .then( () => resolve([...ret]) )
+        .then( () => resolve([...ret]) );
     });
   },
   /**

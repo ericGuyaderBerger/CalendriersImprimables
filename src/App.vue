@@ -24,49 +24,41 @@ export default {
     let employes = []
     let taches = []
     let debut = '2018-12-31'
+    let gapi = {}
     return {employes:employes,taches:taches,debut:debut}
   },
   methods: {
     getEmployes() {
-      this.$getGapiClient()
-      .then(gapi => {
-        // console.log(gapi)
-        gapi.auth2.getAuthInstance().signIn().then( () => {
-          CalendarTools
-            .getEmployesDistincts(gapi,new Date('2018-07-16'),new Date('2018-07-21'))
-            // .getPlanedEvents(gapi,new Date('2018-07-16'),new Date('2018-07-20'))
-            .then( distEmps => {
-              // console.log( distEmps )
-              this.employes = distEmps
-              // console.log(employes)
-              // taches =  distEmps
-            })
+      CalendarTools
+        .getEmployesDistincts(this.gapi,new Date(this.debut))
+        .then( distEmps => {
+          this.employes = distEmps
+          // console.log(employes)
         })
-      })
-      .catch( err => console.log(err) )
+        .catch( err => console.log(err) )
     },
     getWeekTasks(start){
-      this.$getGapiClient()
-      .then(gapi => {
-        // console.log(gapi)
-        gapi.auth2.getAuthInstance().signIn().then( () => {
-          CalendarTools
-            // .getEmployesDistincts(gapi,new Date('2018-07-16'),new Date('2018-07-21'))
-            .getPlanedEvents(gapi,new Date(this.debut))
-            .then( distTaches => {
-              console.log( distTaches )
-              this.taches = distTaches
-              // console.log(employes)
-              // taches =  distEmps
-            })
+      CalendarTools
+        .getPlanedEvents(this.gapi,new Date(this.debut))
+        .then( distTaches => {
+          // console.log( distTaches )
+          this.taches = distTaches
+          
         })
-      })
-      .catch( err => console.log(err) )
+        .catch( err => console.log(err) )
     }
   },
   mounted(){
-    this.getEmployes()
-    // this.getWeekTasks(this.debut)
+    this.$getGapiClient()
+      .then(gapi => {
+        // console.log(gapi)
+        gapi.auth2.getAuthInstance().signIn()
+          .then( () => {
+            this.gapi = gapi
+            this.getEmployes()
+            this.getWeekTasks(this.debut)
+          })
+      })
   }
 }
 </script>
