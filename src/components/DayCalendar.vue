@@ -12,18 +12,7 @@
   export default {
     components:{EmployeeTasks},
     name:'DayCalendar',
-    props: ['jour','debut','employeCalendrier'],
-    data(){
-      return { tachesJour: [
-          {nom:"YARECK",taches:[{intitule:"EXEDRA",type:"Chantiers",couleur:"#ff0"},{intitule:"MPOSS",type:"Chantiers",couleur:"#ff0"}]},
-          {nom:"JOEL",taches:[{intitule:"F. VERDIER, n°9",type:"Chantiers",couleur:"#ff0"},{intitule:"AXA",type:"Vitres",couleur:"#00a"}]},
-          {nom:"PHILIPPE + DISANT",taches:[{intitule:"EGIS MINI",type:"Chantiers",couleur:"#ff0"},{intitule:"LES AGATES",type:"Containers",couleur:"#0aa"},{intitule:"MATEOS",type:"Vitres",couleur:"#00a"}]},
-          {nom:"PHIL",taches:[{intitule:"VARSOVIE Hall",type:"Chantiers",couleur:"#ff0"},{intitule:"SAGESSE MINIMES",type:"Chantiers",couleur:"#ff0"}]},
-          {nom:"DISANT",taches:[{intitule:"PATRIMOINE DE FRANCE",type:"Chantiers",couleur:"#ff0"},{intitule:"LAFOURCADE",type:"Chantiers",couleur:"#ff0"}]},
-
-        ] 
-      }
-    },
+    props: ['jour','debut','employeCalendrier','tachesJour'],
     computed: {
       dateJour(){
         let dt = new Date(this.debut);
@@ -39,6 +28,7 @@
     border:1px solid #666;
     border-radius:8px;
     padding:0.2em;
+    height:100%;
   }
   .calendar-day h5{
     text-align: center;

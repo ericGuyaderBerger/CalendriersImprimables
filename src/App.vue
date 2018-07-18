@@ -1,11 +1,11 @@
 <template>
   <div id="app" class="container">
-    <h1>
+    <h1 class="not-printable">
       <i class="fa fa-calendar text-danger"></i>
       Roche &amp; Fils - Calendriers imprimables
     </h1>
     <Selection />
-    <PrintableCalendars :salaries="employes" :debut="debut" />
+    <PrintableCalendars :salaries="employes" :debut="debut" :tachesSemaine="taches" />
   </div>
 </template>
 

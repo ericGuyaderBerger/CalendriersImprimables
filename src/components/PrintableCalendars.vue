@@ -5,7 +5,7 @@
       <h4>
         {{salarie}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
       </h4>
-      <WeekCalendar :salarie="salarie" :debut="debut" />
+      <WeekCalendar :salarie="salarie" :debut="debut" :taches="tachesSemaine" />
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@
 
   export default {
     name: 'PrintableCalendars',
-    props: ['salaries','debut'],
+    props: ['salaries','debut','tachesSemaine'],
     components:{WeekCalendar},
     data(){
       let fin = new Date(this.debut)

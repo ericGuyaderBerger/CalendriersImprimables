@@ -1,5 +1,5 @@
 <template>
-<div id="selection">
+<div id="selection" class="not-printable">
 <h2>Options du calendrier à imprimer</h2>
 </div>
 </template>

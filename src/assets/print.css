@@ -1,0 +1,8 @@
+.not-printable{
+  display: none;
+}
+
+.calendar-week{
+  page-break-after: always;
+  
+}

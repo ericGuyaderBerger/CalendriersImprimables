@@ -1,6 +1,9 @@
 <template>
   <div class="calendar-week row">
-    <DayCalendar v-for="jour of [0,1,2,3,4,5]" :key="jour" :jour="jour" :debut="debut" :employeCalendrier="salarie" />
+    <DayCalendar v-for="jour of [0,1,2,3,4,5]" :key="jour" 
+        :jour="jour" :debut="debut" 
+        :employeCalendrier="salarie" 
+        :tachesJour="taches[jourIso(jour)]" />
   </div>
 </template>
 <script>
@@ -9,7 +12,16 @@ import DayCalendar from '@/components/DayCalendar.vue'
 export default {
   name:'WeekCalendar',
   components:{DayCalendar},
-  props:['debut','salarie']
+  props:['debut','salarie','taches'],
+  methods:{
+    jourIso(j){
+      let date = new Date(this.debut)
+      console.log(j)
+      date.setDate(date.getDate()+j)
+      console.log(date)
+      return date.toISOString().substr(0,10)
+    }
+  }
 }  
 </script>
 <style scoped>
