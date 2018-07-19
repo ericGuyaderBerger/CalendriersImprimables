@@ -7,6 +7,8 @@
 const SEP = ' + ';
 
 let CalendarTools = {
+  tasksCalendars: ['Chantiers','Particuliers','Containers','Vitres','Rendez-vous !','Ponctuels','Travaux spéciaux','Sous-traitance','Contacts'],
+
   /**
    * Retourne l'id du calendrier à partir de son nom
    * @param {String} name Le nom du calendrier
@@ -177,13 +179,13 @@ let CalendarTools = {
    */
   getPlanedEvents(gapi,start){
     return new Promise( (resolve,reject) => {
-      let tasksCalendars = ['Mains-d\'oeuvre','Chantiers','Particuliers','Containers','Vitres','Rendez-vous !','Ponctuels','Travaux spéciaux','Sous-traitance','Contacts'];
+      let calendars = ['Mains-d\'oeuvre',...this.tasksCalendars];
       let end = new Date(start)
       let ret = {}
       
       end.setDate(end.getDate() + 5)
 
-      let allPromises = tasksCalendars.map( calName => {
+      let allPromises = calendars.map( calName => {
         let calInfosProm = this.calendarInfosFromName(gapi,calName);
         return calInfosProm.then( cal => {
           return this.getEventsForPlaning(gapi,cal,start,end)
