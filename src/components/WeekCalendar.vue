@@ -16,9 +16,7 @@ export default {
   methods:{
     jourIso(j){
       let date = new Date(this.debut)
-      console.log(j)
       date.setDate(date.getDate()+j)
-      console.log(date)
       return date.toISOString().substr(0,10)
     }
   }
