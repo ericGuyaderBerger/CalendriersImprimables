@@ -31,5 +31,9 @@
   .tache{
     margin:0.1em;
   }
+  
+  h6{
+    margin-bottom:0.1em
+  }
 </style>
 

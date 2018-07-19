@@ -1,0 +1,44 @@
+@page {
+  size: landscape;
+  /* width:29.7cm;
+  height:21cm; */
+}
+
+@media print{
+  .container {
+      max-width: 100%;
+  }
+}
+
+.container,.row{
+  margin: 0 0.5% 0 0.1%;
+  padding:0;
+}
+
+.not-printable{
+  display: none;
+}
+
+.calendar {
+  min-height:100%;
+  max-height:100%;
+  min-width:100%;
+  overflow: hidden;
+}
+
+.calendar-week{
+  page-break-after: always;
+  /*height:19.5cm;*/
+  min-height:19.5cm;
+  /* width:29.7cm; */
+  /* margin:0;
+  padding:0; */
+}
+
+.calendar *{
+  font-size:7pt;
+}
+
+.calendar h4{
+  font-size:2em;
+}

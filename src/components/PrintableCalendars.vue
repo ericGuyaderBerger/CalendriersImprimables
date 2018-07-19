@@ -1,6 +1,6 @@
 <template>
   <div id="calendars">
-    <h2>Impression</h2>
+    <h2 class="not-printable">Impression</h2>
     <div class="calendar" v-for="salarie in salaries" :key="salarie.nom">
       <h4>
         {{salarie}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
