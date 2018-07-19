@@ -41,7 +41,7 @@ export default {
   methods: {
     getEmployes() {
       CalendarTools
-        .getEmployesDistincts(this.gapi,new Date(this.debut))
+        .getEmployesDistincts(new Date(this.debut))
         .then( distEmps => {
           // console.log(employes)
           this.employes = distEmps
@@ -50,7 +50,7 @@ export default {
     },
     getWeekTasks(start){
       let TasksProm = CalendarTools
-        .getPlanedEvents(this.gapi,new Date(this.debut))
+        .getPlanedEvents(new Date(this.debut))
       // console.log(TasksProm)
       TasksProm
         .then( distTaches => {
@@ -61,7 +61,7 @@ export default {
     },
     getTasksCalendars(){
       let CalendarsProm = CalendarTools
-        .getTasksCalendars(this.gapi);
+        .getTasksCalendars();
       CalendarsProm
         .then( calendars => this.calendriersTaches = calendars )
         .catch( err => console.log(err) )
@@ -69,11 +69,11 @@ export default {
   },
   mounted(){
     this.$getGapiClient()
-      .then(gapi => {
+      .then( gapi => {
         // console.log(gapi)
-        gapi.auth2.getAuthInstance().signIn()
+        CalendarTools.logIn(gapi)
           .then( () => {
-            this.gapi = gapi
+          // this.gapi = gapi
             this.getEmployes()
             this.getWeekTasks(this.debut)
             this.getTasksCalendars()

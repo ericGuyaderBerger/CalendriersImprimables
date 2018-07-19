@@ -9,14 +9,22 @@ const SEP = ' + ';
 let CalendarTools = {
   tasksCalendars: ['Chantiers','Containers','Vitres','Ponctuels','Particuliers','Travaux spéciaux','Sous-traitance','Rendez-vous !','Contacts'],
   nomCalendrierMO: 'Mains-d\'oeuvre',
+  gapi: {},
+  logIn(gapi){
+    return new Promise( (resolve,reject ) => {
+      resolve( gapi.auth2.getAuthInstance().signIn()
+      .then( () => this.gapi = gapi )
+      .catch( err => reject(err) ) )
+    })
+  },
   /**
    * Retourne l'id du calendrier à partir de son nom
    * @param {String} name Le nom du calendrier
    * @param {google.auth.OAuth2} auth  Un client oAuth2 autorisé
    */
-  calendarIdFromName(gapi,name) {
+  calendarIdFromName(name) {
     return new Promise( (resolve,reject) => {
-      let calInfosProm = this.calendarInfosFromName(gapi,name);
+      let calInfosProm = this.calendarInfosFromName(name);
       calInfosProm.then(cal => resolve(cal.id))
       .catch( err => reject('The API returned an error: ' + err) );
     })
@@ -26,9 +34,9 @@ let CalendarTools = {
    * Retourne tous les calendriers 
    * @param {google} gapi 
    */
-  getCalendars(gapi){
+  getCalendars(){
     return new Promise( (resolve,reject) => {
-      gapi.client.calendar.calendarList.list({}).then( res => {
+      this.gapi.client.calendar.calendarList.list({}).then( res => {
         resolve(res.result.items)
       })
       .catch( err => reject('The API returned an error: ' + err) )
@@ -41,9 +49,9 @@ let CalendarTools = {
    * @param {google} gapi 
    * @returns {Promise}
    */
-  getTasksCalendars(gapi){
+  getTasksCalendars(){
     return new Promise( (resolve,reject) => {
-      this.getCalendars(gapi)
+      this.getCalendars()
         .then ( calendars => {
           let ret = []
           this.tasksCalendars.map( calName => {
@@ -63,12 +71,12 @@ let CalendarTools = {
    * @param {String} name Le nom du calendrier
    * @param {google.auth.OAuth2} auth  Un client oAuth2 autorisé
    */
-  calendarInfosFromName(gapi,name) {
+  calendarInfosFromName(name) {
     return new Promise( (resolve,reject) => {
       //const calendar = google.calendar({version: 'v3', auth});
       // console.log('ok calendarIdFromName')
       // console.log(gapi)
-      this.getCalendars(gapi).then( calendars => {
+      this.getCalendars().then( calendars => {
         // if (err) reject('The API returned an error: ' + err);
         //const calendars = res.result.items;
         // console.log(calendars);
@@ -92,11 +100,11 @@ let CalendarTools = {
    * @param {Date} end Date de fin
    * @param {google.auth.OAuth2} auth Un client oAuth2 autorisé
    */
-  getEvents(gapi,calId,start,end){
+  getEvents(calId,start,end){
     return new Promise( (resolve,reject) => {
       //const calendar = google.calendar({version: 'v3', auth});
       // console.log('ok getEvents, calId:', calId);
-      gapi.client.calendar.events.list(
+      this.gapi.client.calendar.events.list(
         {
           calendarId:calId,
           timeMin:start.toISOString().replace('Z','+02:00'),
@@ -115,12 +123,12 @@ let CalendarTools = {
     })
   },
 
-  getEventsForPlaning(gapi,cal,start,end){
+  getEventsForPlaning(cal,start,end){
     return new Promise( (resolve,reject) => {
       // let ret = []
       //const calendar = google.calendar({version: 'v3', auth});
       // console.log('ok getEvents, calId:', calId);
-      gapi.client.calendar.events.list(
+      this.gapi.client.calendar.events.list(
         {
           calendarId:cal.id,
           timeMin:start.toISOString().replace('Z','+02:00'),
@@ -146,15 +154,15 @@ let CalendarTools = {
    * @param {Date} end Fin de la période du calendrier
    * @returns {Promise}
    */
-  getEmployes(gapi,start,end){
+  getEmployes(start,end){
     return new Promise( (resolve,reject) => {
       // console.log('ok getEmployes')
       // let oAuth = this.getOAuthClient();
       let nomCalendrier = this.nomCalendrierMO;
-      let calIdProm = this.calendarIdFromName(gapi,nomCalendrier);
+      let calIdProm = this.calendarIdFromName(nomCalendrier);
       calIdProm.then( id => {
         // console.log(id)
-        resolve(this.getEvents(gapi,id,start,end))
+        resolve(this.getEvents(id,start,end))
       }).catch( (reason) => reject(reason) );
     });
   },
@@ -167,14 +175,14 @@ let CalendarTools = {
    * @param {Date} end 
    * @returns {Set}
    */
-  getEmployesDistincts(gapi,start){
+  getEmployesDistincts(start){
     return new Promise( (resolve,reject) => {
       // console.log('ok getEmployesDistincts');
       
       let ret = new Set();
       let end = new Date(start)
       end.setDate(end.getDate() + 5)
-      let employesProm = this.getEmployes(gapi,start,end)
+      let employesProm = this.getEmployes(start,end)
       employesProm.catch( reason => reject(reason) );
       employesProm
         .then( employes => {
@@ -200,7 +208,7 @@ let CalendarTools = {
    * @param {Date} end
    * @return {Object} 
    */
-  getPlanedEvents(gapi,start){
+  getPlanedEvents(start){
     return new Promise( (resolve,reject) => {
       let calendars = [this.nomCalendrierMO,...this.tasksCalendars];
       let end = new Date(start)
@@ -209,9 +217,9 @@ let CalendarTools = {
       end.setDate(end.getDate() + 5)
 
       let allPromises = calendars.map( calName => {
-        let calInfosProm = this.calendarInfosFromName(gapi,calName);
+        let calInfosProm = this.calendarInfosFromName(calName);
         return calInfosProm.then( cal => {
-          return this.getEventsForPlaning(gapi,cal,start,end)
+          return this.getEventsForPlaning(cal,start,end)
             // .then( res => {
             //   // console.log(res)
             //   res.map( event => {
