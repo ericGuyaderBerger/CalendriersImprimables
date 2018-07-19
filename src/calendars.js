@@ -100,7 +100,8 @@ let CalendarTools = {
         {
           calendarId:calId,
           timeMin:start.toISOString().replace('Z','+02:00'),
-          timeMax:end.toISOString().replace('Z','+02:00')
+          timeMax:end.toISOString().replace('Z','+02:00'),
+          singleEvents : true
         }
       )
       .then( res  => {
@@ -123,7 +124,8 @@ let CalendarTools = {
         {
           calendarId:cal.id,
           timeMin:start.toISOString().replace('Z','+02:00'),
-          timeMax:end.toISOString().replace('Z','+02:00')
+          timeMax:end.toISOString().replace('Z','+02:00'),
+          singleEvents: true
         }
       )
       .then( res  => {
