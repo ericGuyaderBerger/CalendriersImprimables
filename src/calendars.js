@@ -222,6 +222,14 @@ let CalendarTools = {
       let end = new Date(start)
       let ret = {}
       
+      // Crée les 5 jours de la semaine, quoi qu'il arrive
+      for (let i = 0; i <= 4; i++ ){
+        let dt = new Date()
+        dt.setDate(start.getDate() + i)
+        let dtString = dt.toISOString().substr(0,10)
+        ret[dtString] = []
+        // ret[dtString].taches = []
+      }
       end.setDate(end.getDate() + 5)
 
       let allPromises = calendars.map( calName => {
@@ -267,9 +275,12 @@ let CalendarTools = {
           }
           if(tache.type === this.nomCalendrierMO){
             ret[dtProp].push({nom:tache.intitule, taches:[]})
-            index++
+            index=0
           }else{
-            ret[dtProp][index - 1].taches.push(tache)
+            // console.log(index)
+            // console.log(ret[dtProp])
+            ret[dtProp][index].taches.push(tache)
+            index++
           }
           // ret[dtProp].taches.push(event)
         })
