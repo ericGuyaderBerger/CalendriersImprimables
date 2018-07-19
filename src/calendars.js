@@ -19,7 +19,21 @@ let CalendarTools = {
       .catch( err => reject('The API returned an error: ' + err) );
     })
   },
-/**
+
+  /**
+   * Retourne tous les calendriers 
+   * @param {google} gapi 
+   */
+  getCalendars(gapi){
+    return new Promise( (resolve,reject) => {
+      gapi.client.calendar.calendarList.list({}).then( res => {
+        resolve(res.result.items)
+      })
+      .catch( err => reject('The API returned an error: ' + err) )
+    })
+  },
+
+  /**
    * Retourne les infos du calendrier à partir de son nom
    * @param {String} name Le nom du calendrier
    * @param {google.auth.OAuth2} auth  Un client oAuth2 autorisé
@@ -29,9 +43,9 @@ let CalendarTools = {
       //const calendar = google.calendar({version: 'v3', auth});
       // console.log('ok calendarIdFromName')
       // console.log(gapi)
-      gapi.client.calendar.calendarList.list({}).then( res => {
+      this.getCalendars(gapi).then( calendars => {
         // if (err) reject('The API returned an error: ' + err);
-        const calendars = res.result.items;
+        //const calendars = res.result.items;
         // console.log(calendars);
         calendars.forEach( cal => {
           // console.log(cal)
