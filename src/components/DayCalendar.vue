@@ -12,12 +12,12 @@
   export default {
     components:{EmployeeTasks},
     name:'DayCalendar',
-    props: ['jour','debut','employeCalendrier','tachesJour'],
+    props: ['jour','employeCalendrier','tachesJour'],
     computed: {
       dateJour(){
-        let dt = new Date(this.debut);
+        let dt = new Date(this.jour);
         let jours = ["lundi", "mardi","mercredi","jeudi","vendredi","samedi"];
-        dt.setDate(dt.getDate() + this.jour )
+        // dt.setDate(dt.getDate() + this.jour )
         return jours[dt.getDay() - 1] + ' ' + dt.getDate();
       }
     }

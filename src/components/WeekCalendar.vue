@@ -1,9 +1,9 @@
 <template>
   <div class="calendar-week row">
-    <DayCalendar v-for="jour of [0,1,2,3,4,5]" :key="jour" 
-        :jour="jour" :debut="debut" 
-        :employeCalendrier="salarie" 
-        :tachesJour="taches[jourIso(jour)]" />
+    <DayCalendar v-for="(taches,jour) in taches" :key="jour" 
+        :employeCalendrier="salarie"
+        :jour="jour" 
+        :tachesJour="taches" />
   </div>
 </template>
 <script>
