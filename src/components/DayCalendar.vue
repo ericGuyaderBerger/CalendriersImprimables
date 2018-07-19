@@ -1,5 +1,5 @@
 <template>
-  <div class="col-2 p-1">
+  <div class="col-sm p-1">
     <div class="calendar-day">
       <h5>{{ dateJour }}</h5>
       <EmployeeTasks v-for="employe in tachesJour" :key="employe.nom" :employe="employe" :employeCalendrier="employeCalendrier" />
