@@ -10,6 +10,11 @@ let CalendarTools = {
   tasksCalendars: ['Chantiers','Containers','Vitres','Ponctuels','Particuliers','Travaux spéciaux','Sous-traitance','Rendez-vous !','Contacts'],
   nomCalendrierMO: 'Mains-d\'oeuvre',
   gapi: {},
+  /**
+   * Retourne la promesse d'une connexion à l'API Google
+   * @param {google.client} gapi 
+   * @returns {Promise}
+   */
   logIn(gapi){
     return new Promise( (resolve,reject ) => {
       resolve( gapi.auth2.getAuthInstance().signIn()
@@ -20,7 +25,7 @@ let CalendarTools = {
   /**
    * Retourne l'id du calendrier à partir de son nom
    * @param {String} name Le nom du calendrier
-   * @param {google.auth.OAuth2} auth  Un client oAuth2 autorisé
+   * @returns {Promise}
    */
   calendarIdFromName(name) {
     return new Promise( (resolve,reject) => {
@@ -32,7 +37,7 @@ let CalendarTools = {
 
   /**
    * Retourne tous les calendriers 
-   * @param {google} gapi 
+   * @returns {Promise}
    */
   getCalendars(){
     return new Promise( (resolve,reject) => {
@@ -46,7 +51,6 @@ let CalendarTools = {
 /**
    * Retourne tous les calendriers de tâches, triés selon l'ordre des calendriers 
    * dans this.tasksCalendars
-   * @param {google} gapi 
    * @returns {Promise}
    */
   getTasksCalendars(){
@@ -69,7 +73,7 @@ let CalendarTools = {
   /**
    * Retourne les infos du calendrier à partir de son nom
    * @param {String} name Le nom du calendrier
-   * @param {google.auth.OAuth2} auth  Un client oAuth2 autorisé
+   * @returns {Promise}
    */
   calendarInfosFromName(name) {
     return new Promise( (resolve,reject) => {
@@ -98,7 +102,7 @@ let CalendarTools = {
    * @param {Int} calId Id du calendrier
    * @param {Date} start Date de début
    * @param {Date} end Date de fin
-   * @param {google.auth.OAuth2} auth Un client oAuth2 autorisé
+   * @returns {Promise}
    */
   getEvents(calId,start,end){
     return new Promise( (resolve,reject) => {
@@ -122,7 +126,13 @@ let CalendarTools = {
       
     })
   },
-
+  /**
+   * Retourne les employés et leurs tâches 
+   * @param {gapi.client.calendar} cal 
+   * @param {Date} start 
+   * @param {Date} end 
+   * @returns {Promise}
+   */
   getEventsForPlaning(cal,start,end){
     return new Promise( (resolve,reject) => {
       // let ret = []
@@ -173,7 +183,7 @@ let CalendarTools = {
    * 
    * @param {Date} start 
    * @param {Date} end 
-   * @returns {Set}
+   * @returns {Array}
    */
   getEmployesDistincts(start){
     return new Promise( (resolve,reject) => {
@@ -203,10 +213,8 @@ let CalendarTools = {
   },
   /**
    * Renvoie les événements des calendriers des travaux
-   * @param {google.client} gapi 
    * @param {Date} start 
-   * @param {Date} end
-   * @return {Object} 
+   * @returns {Object} 
    */
   getPlanedEvents(start){
     return new Promise( (resolve,reject) => {
