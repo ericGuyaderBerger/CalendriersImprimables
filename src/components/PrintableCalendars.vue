@@ -2,9 +2,19 @@
   <div id="calendars">
     <h2 class="not-printable">Impression</h2>
     <div class="calendar" v-for="salarie in salaries" :key="salarie.nom">
-      <h4>
-        {{salarie}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
-      </h4>
+      <div class="row">
+        <h4 class="col-6">
+          {{salarie}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
+        </h4>
+        <div class="col-6 container-fluid">
+          <div class="row">
+            <div v-for="cal in calendriers" :key="cal.summary" class="col-4">
+              <i class="fa fa-square" :style="{color:cal.backgroundColor}"></i>
+              {{ cal.summary }}
+            </div>
+          </div>
+        </div>
+      </div>
       <WeekCalendar :salarie="salarie" :debut="debut" :taches="tachesSemaine" />
     </div>
   </div>
@@ -15,7 +25,7 @@
 
   export default {
     name: 'PrintableCalendars',
-    props: ['salaries','debut','tachesSemaine'],
+    props: ['salaries','debut','tachesSemaine','calendriers'],
     components:{WeekCalendar},
     data(){
       let fin = new Date(this.debut)
