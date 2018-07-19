@@ -25,7 +25,8 @@ export default {
     let taches = []
     let debut = '2018-07-16'
     let gapi = {}
-    return {employes:employes,taches:taches,debut:debut}
+    let calendriersTaches = []
+    return {employes,taches,debut,calendriersTaches}
   },
   methods: {
     getEmployes() {
@@ -47,6 +48,13 @@ export default {
           this.taches = distTaches
         })
         .catch( err => console.log(err) )
+    },
+    getCalendars(){
+      let CalendarsProm = CalendarTools
+        .getCalendars(this.gapi);
+      CalendarsProm
+        .then( calendars => this.calendriersTaches = calendars )
+        .catch( err => console.log(err) )
     }
   },
   mounted(){
@@ -58,6 +66,7 @@ export default {
             this.gapi = gapi
             this.getEmployes()
             this.getWeekTasks(this.debut)
+            this.getCalendars()
           })
       })
   }

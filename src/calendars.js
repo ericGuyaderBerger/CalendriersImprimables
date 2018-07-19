@@ -8,7 +8,7 @@ const SEP = ' + ';
 
 let CalendarTools = {
   tasksCalendars: ['Chantiers','Particuliers','Containers','Vitres','Rendez-vous !','Ponctuels','Travaux spéciaux','Sous-traitance','Contacts'],
-
+  nomCalendrierMO: 'Mains-d\'oeuvre',
   /**
    * Retourne l'id du calendrier à partir de son nom
    * @param {String} name Le nom du calendrier
@@ -115,8 +115,6 @@ let CalendarTools = {
     })
   },
 
-
-
   /**
    * Obtient les employés présents dans le calendrier entre deux dates
    * @param {Date} start Début de la période du calendrier
@@ -127,7 +125,7 @@ let CalendarTools = {
     return new Promise( (resolve,reject) => {
       // console.log('ok getEmployes')
       // let oAuth = this.getOAuthClient();
-      let nomCalendrier = 'Mains-d\'oeuvre';
+      let nomCalendrier = this.nomCalendrierMO;
       let calIdProm = this.calendarIdFromName(gapi,nomCalendrier);
       calIdProm.then( id => {
         // console.log(id)
@@ -179,7 +177,7 @@ let CalendarTools = {
    */
   getPlanedEvents(gapi,start){
     return new Promise( (resolve,reject) => {
-      let calendars = ['Mains-d\'oeuvre',...this.tasksCalendars];
+      let calendars = [this.nomCalendrierMO,...this.tasksCalendars];
       let end = new Date(start)
       let ret = {}
       
@@ -226,7 +224,7 @@ let CalendarTools = {
             ret[dtProp] = []
             // ret[dtProp].taches = []
           }
-          if(tache.type === "Mains-d'oeuvre"){
+          if(tache.type === this.nomCalendrierMO){
             ret[dtProp].push({nom:tache.intitule, taches:[]})
             index++
           }else{
