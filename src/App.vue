@@ -23,10 +23,20 @@ export default {
   data(){
     let employes = []
     let taches = []
-    let debut = '2018-07-16'
     let gapi = {}
     let calendriersTaches = []
-    return {employes,taches,debut,calendriersTaches}
+    return {employes,taches,calendriersTaches}
+  },
+  computed:{
+    debut(){
+      let now = new Date()
+      let ret = new Date()
+      let jourSem = now.getDay()
+      if ( jourSem > 1 ) {
+        ret.setDate( now.getDate() + 8 - jourSem )
+      }
+      return ret
+    }
   },
   methods: {
     getEmployes() {
