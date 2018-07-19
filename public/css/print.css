@@ -7,6 +7,7 @@
 @media print{
   .container {
       max-width: 100%;
+      color:#000;
   }
 }
 
@@ -40,5 +41,5 @@
 }
 
 .calendar h4{
-  font-size:2em;
+  font-size:3em;
 }

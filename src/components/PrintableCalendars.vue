@@ -3,10 +3,10 @@
     <h2 class="not-printable">Impression</h2>
     <div class="calendar" v-for="salarie in salaries" :key="salarie.nom">
       <div class="row">
-        <h4 class="col-6">
+        <h4 class="col-8">
           {{salarie}}, du {{ debut | dateFr }} au {{ fin | dateFr }}
         </h4>
-        <div class="col-6 container-fluid">
+        <div class="col-4 container-fluid">
           <div class="row">
             <div v-for="cal in calendriers" :key="cal.summary" class="col-4">
               <i class="fa fa-square" :style="{color:cal.backgroundColor}"></i>

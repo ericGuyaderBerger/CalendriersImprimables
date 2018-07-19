@@ -19,7 +19,7 @@
   }
 
   .taches-employe:not(.active){
-    opacity: 0.25;
+    opacity: 0.5;
   }
 
   .active{
