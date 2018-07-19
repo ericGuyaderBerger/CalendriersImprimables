@@ -7,7 +7,7 @@
 const SEP = ' + ';
 
 let CalendarTools = {
-  tasksCalendars: ['Chantiers','Particuliers','Containers','Vitres','Rendez-vous !','Ponctuels','Travaux spéciaux','Sous-traitance','Contacts'],
+  tasksCalendars: ['Chantiers','Containers','Vitres','Ponctuels','Particuliers','Travaux spéciaux','Sous-traitance','Rendez-vous !','Contacts'],
   nomCalendrierMO: 'Mains-d\'oeuvre',
   /**
    * Retourne l'id du calendrier à partir de son nom
@@ -32,6 +32,29 @@ let CalendarTools = {
         resolve(res.result.items)
       })
       .catch( err => reject('The API returned an error: ' + err) )
+    })
+  },
+
+/**
+   * Retourne tous les calendriers de tâches, triés selon l'ordre des calendriers 
+   * dans this.tasksCalendars
+   * @param {google} gapi 
+   * @returns {Promise}
+   */
+  getTasksCalendars(gapi){
+    return new Promise( (resolve,reject) => {
+      this.getCalendars(gapi)
+        .then ( calendars => {
+          let ret = []
+          this.tasksCalendars.map( calName => {
+            let calInfos = calendars.find( cal => cal.summary === calName )
+            if(calInfos){
+              ret.push( calInfos )
+            }
+          })
+          resolve(ret)
+        })
+        .catch( err => reject('The API returned an error: ' + err) )
     })
   },
 

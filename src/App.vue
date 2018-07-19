@@ -49,9 +49,9 @@ export default {
         })
         .catch( err => console.log(err) )
     },
-    getCalendars(){
+    getTasksCalendars(){
       let CalendarsProm = CalendarTools
-        .getCalendars(this.gapi);
+        .getTasksCalendars(this.gapi);
       CalendarsProm
         .then( calendars => this.calendriersTaches = calendars )
         .catch( err => console.log(err) )
@@ -66,7 +66,7 @@ export default {
             this.gapi = gapi
             this.getEmployes()
             this.getWeekTasks(this.debut)
-            this.getCalendars()
+            this.getTasksCalendars()
           })
       })
   }
