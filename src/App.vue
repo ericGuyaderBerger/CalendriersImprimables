@@ -4,7 +4,7 @@
       <i class="fa fa-calendar text-danger"></i>
       Roche &amp; Fils - Calendriers imprimables
     </h1>
-    <Selection />
+    <Selection :debut="debut" :salaries="employes" />
     <PrintableCalendars :salaries="employes" :debut="debut" :tachesSemaine="taches" :calendriers="calendriersTaches" />
   </div>
 </template>

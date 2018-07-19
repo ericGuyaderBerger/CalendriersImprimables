@@ -7,6 +7,10 @@
 <script>
 export default {
   name: 'Selection',
+  props: {
+    debut: Date,
+    salaries: Array
+  }
 }
 </script>
 
