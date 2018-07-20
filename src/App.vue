@@ -35,7 +35,7 @@ export default {
       if ( jourSem > 1 ) {
         ret.setDate( now.getDate() + 8 - jourSem )
       }
-      return ret
+      return new Date(ret.toISOString().substr(0,10))
     }
   },
   methods: {

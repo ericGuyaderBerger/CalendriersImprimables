@@ -138,18 +138,21 @@ let CalendarTools = {
       // let ret = []
       //const calendar = google.calendar({version: 'v3', auth});
       // console.log('ok getEvents, calId:', calId);
+      //console.log(start.toISOString().replace('Z','+02:00'));
       this.gapi.client.calendar.events.list(
         {
           calendarId:cal.id,
           timeMin:start.toISOString().replace('Z','+02:00'),
           timeMax:end.toISOString().replace('Z','+02:00'),
+          // timeMin:start.toISOString(),
+          // timeMax:end.toISOString(),
           singleEvents: true
         }
       )
       .then( res  => {
         // console.log(res)
         const events = res.result.items;
-        events.map( event => event.cal=cal)
+        events.forEach( event => event.cal=cal)
         // console.log(events)
         resolve(events);
       })
@@ -218,7 +221,7 @@ let CalendarTools = {
    */
   getPlanedEvents(start){
     return new Promise( (resolve,reject) => {
-      let calendars = [this.nomCalendrierMO,...this.tasksCalendars];
+      let calendars = [...this.tasksCalendars,this.nomCalendrierMO];
       let end = new Date(start)
       let ret = {}
       
@@ -248,39 +251,66 @@ let CalendarTools = {
         .catch( (reason) => reject(reason) );
       })
       // console.log('allPromises:',allPromises)
-      let allEventsProm = Promise.all( allPromises )
+      const allEventsProm = Promise.all( allPromises )
       
-      allEventsProm.then( (events) => {
-        let allEvents = []
+      allEventsProm.then( events => {
+        // console.log(allEventsProm);
+        
         let index = 0
         // console.log(events)
+        // let allEvents = events.map( evs => {
+        //   if (evs){ 
+        //     return evs.map( event => {
+        //         // console.log(event.start.dateTime)
+        //         // if(allEvents.find( evt => evt.dateHeure===event.start.dateTime && evt.intitule === event.summary ) === undefined )
+        //           return {dateHeure:event.start.dateTime.toString(),intitule:event.summary,type:event.cal.summary,couleur:event.cal.backgroundColor} 
+        //         // console.log(allEvents)
+        //       })
+        //   }
+        // })
+        // allEvents = allEvents.reduce(function(a, b) {
+        //   return a.concat(b);
+        // })
+
+        let allEvents = []
         events.forEach( evs => {
           if (evs){ 
-            evs.map( event => {
-                
+            evs.forEach( event => {
+                // console.log(event.start.dateTime)
                 // if(allEvents.find( evt => evt.dateHeure===event.start.dateTime && evt.intitule === event.summary ) === undefined )
-                  allEvents.push( {dateHeure:event.start.dateTime,intitule:event.summary,type:event.cal.summary,couleur:event.cal.backgroundColor}) 
+                  allEvents.push({dateHeure:event.start.dateTime, timestamp:new Date(event.start.dateTime.substr(0,19)).getTime(),intitule:event.summary,type:event.cal.summary,couleur:event.cal.backgroundColor} )
                 // console.log(allEvents)
               })
           }
         })
-        allEvents.sort( (a,b) => new Date(a.dateHeure).getTime() - new Date(b.dateHeure).getTime() )
-        allEvents.map( event => {
+
+       
+        // console.log(allEvents)
+        allEvents.sort( (a,b) => a.timestamp - b.timestamp )
+        // console.log('--------- Après tri')
+        // console.log(allEvents)
+
+        allEvents.forEach( event => {
+          // console.log(event.dateHeure + ' - ' + event.intitule)
           let dtProp = event.dateHeure.substr(0,10)
           let tache = event
-          
+          // let index = 0
+          // index=0
           if( !ret[dtProp] ){
             ret[dtProp] = []
-            // ret[dtProp].taches = []
           }
+
           if(tache.type === this.nomCalendrierMO){
-            ret[dtProp].push({nom:tache.intitule, taches:[]})
-            index=0
-          }else{
-            // console.log(index)
+            // console.log(dtProp)
             // console.log(ret[dtProp])
+            ret[dtProp].push({nom:tache.intitule, taches:[]})
+            index = ret[dtProp].length - 1
+          }else{
+            // console.log(dtProp)
+            // console.log(ret[dtProp])
+            // console.log(ret[dtProp][index])
             ret[dtProp][index].taches.push(tache)
-            index++
+            // index++
           }
           // ret[dtProp].taches.push(event)
         })
