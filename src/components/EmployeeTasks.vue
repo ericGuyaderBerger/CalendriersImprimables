@@ -9,7 +9,7 @@
     name:'EmployeeTasks',
     props:{
       employe: Object,
-      employeCalendrier: Object,
+      employeCalendrier: String,
     }
   }
 </script>
