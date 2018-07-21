@@ -25,7 +25,12 @@
 
   export default {
     name: 'PrintableCalendars',
-    props: ['salaries','debut','tachesSemaine','calendriers'],
+    props: {
+      salaries: Array,
+      debut: Date,
+      tachesSemaine: [Array, Object],
+      calendriers: Array
+    },
     components:{WeekCalendar},
     // data(){
     //   let fin = new Date(this.debut)

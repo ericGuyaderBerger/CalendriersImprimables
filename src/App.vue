@@ -23,8 +23,8 @@ export default {
   data(){
     let employes = []
     let taches = []
-    let debut = undefined
-    let gapi = {}
+    let debut = this.getDefaultDebut()
+    // let gapi = {}
     let calendriersTaches = []
     return {employes,taches,calendriersTaches,debut}
   },
@@ -35,9 +35,7 @@ export default {
     update(newDebut){
       // console.log(newDebut)
       this.debut = newDebut
-      this.getWeekTasks(newDebut)
-      this.getEmployes()
-      this.getTasksCalendars()
+      this.getGapiData()
     },
     getDefaultDebut(){
       let now = new Date()
@@ -59,7 +57,7 @@ export default {
         })
         .catch( err => console.log(err) )
     },
-    getWeekTasks(start){
+    getWeekTasks(){
       let TasksProm = CalendarTools
         .getPlanedEvents(new Date(this.debut))
       // console.log(TasksProm)
@@ -76,19 +74,21 @@ export default {
       CalendarsProm
         .then( calendars => this.calendriersTaches = calendars )
         .catch( err => console.log(err) )
+    },
+    getGapiData(){
+      this.getEmployes()
+      this.getWeekTasks()
+      this.getTasksCalendars()
     }
   },
   mounted(){
-    this.debut = this.getDefaultDebut()
+    // this.debut = this.getDefaultDebut()
     this.$getGapiClient()
       .then( gapi => {
         // console.log(gapi)
         CalendarTools.logIn(gapi)
           .then( () => {
-          // this.gapi = gapi
-            this.getEmployes()
-            this.getWeekTasks(this.debut)
-            this.getTasksCalendars()
+              this.getGapiData()
           })
       })
   }

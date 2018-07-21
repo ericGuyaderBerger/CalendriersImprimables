@@ -4,16 +4,13 @@
     <div class="row">
       <div class="col-3">
         <p v-for="semaine in semainesAffichables" :key="semaine.libelle" class="semaine"
-            :class="{inactive:!isActive(semaine)}"
-            @click="changeDebut(semaine.debut)"
-            >
-          <i class="fa fa-calendar"></i> {{ semaine.libelle }}
+            @click="changeDebut(semaine.debut)">
+          <SelectionSemaine :semaine="semaine" :debut="debut" />
         </p>
       </div>
       <div class="col-9 row">
-        <p v-for="salarie in salaries" :key="salarie" class="col-3 salarie">
-          <i class="fa fa-user"></i>
-          {{ salarie }}
+        <p v-for="salarie in salaries" :key="salarie" class="col-3 salarie">  
+          <SelectionSalarie :salarie="salarie" />
         </p>
       </div>
       
@@ -22,24 +19,32 @@
 </template>
 
 <script>
+import SelectionSalarie from '@/components/SelectionSalarie.vue'
+import SelectionSemaine from '@/components/SelectionSemaine.vue'
+
 export default {
   name: 'Selection',
+  components:{SelectionSalarie,SelectionSemaine},
   props: {
     debut: Date,
     salaries: Array
   },
-  computed:{
-    semainesAffichables(){
+  data(){
+    let semainesAffichables = this.getSemainesAffichables()
+    return {semainesAffichables}
+  },
+  methods:{
+    getSemainesAffichables(){
       let ret = []
       let now = new Date()
       let lundi = new Date()
       lundi.setDate(now.getDate() - (now.getDay() - 1) )
-      
+      // console.log(debutCal)
       for( let i = -3; i < 2; i++ ){
         let debut = new Date()
         debut.setDate( lundi.getDate() + i * 7 )
         debut.setHours(0,0,0,0)
-      
+        
         // console.log(debut)
         ret.push({
           debut,
@@ -47,13 +52,22 @@ export default {
         })
       }
       return ret
-    }
-  },
-  methods:{
-    isActive(semaine){
+    },
+  // },
+  // methods:{
+    isActiveSalarie(sal){
+      console.log(this.clicks[sal])
+      return this.clicks[sal] !== undefined && this.clicks[sal] % 2 > 0
+    },
+    salarieClick(salarie){
       // console.log(this.debut)
       // console.log(semaine.debut)
-      return semaine.debut === this.debut
+      if(undefined === this.clicks[salarie]){
+        this.clicks[salarie] = 0
+      }
+      this.clicks[salarie]++
+      // console.log(this.clicks)
+      this.$emit('update:salariesChoisis',salarie)
     },
     changeDebut(nvDebut){
       // console.log(nvDebut)
@@ -64,7 +78,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style>
   .inactive{
     opacity:0.25
   }
