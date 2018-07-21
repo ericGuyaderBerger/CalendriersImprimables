@@ -9,7 +9,8 @@
         </p>
       </div>
       <div class="col-9 row">
-        <p v-for="salarie in salaries" :key="salarie" class="col-3 salarie">  
+        <p v-for="salarie in salaries" :key="salarie" class="col-3 salarie"
+            @click="salarieClick(salarie)">  
           <SelectionSalarie :salarie="salarie" />
         </p>
       </div>
@@ -60,14 +61,7 @@ export default {
       return this.clicks[sal] !== undefined && this.clicks[sal] % 2 > 0
     },
     salarieClick(salarie){
-      // console.log(this.debut)
-      // console.log(semaine.debut)
-      if(undefined === this.clicks[salarie]){
-        this.clicks[salarie] = 0
-      }
-      this.clicks[salarie]++
-      // console.log(this.clicks)
-      this.$emit('update:salariesChoisis',salarie)
+      this.$emit('update:employesSelectionnes',salarie)
     },
     changeDebut(nvDebut){
       // console.log(nvDebut)

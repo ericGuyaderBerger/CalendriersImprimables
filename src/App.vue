@@ -4,7 +4,7 @@
       <i class="fa fa-calendar text-danger"></i>
       Roche &amp; Fils - Calendriers imprimables
     </h1>
-    <Selection :debut="debut" :salaries="employes" v-on:update:debut="update($event)"/>
+    <Selection :debut="debut" :salaries="employes" @update:debut="update($event)" @update:employesSelectionnes="updateEmployesSelectionnes($event)" />
     <PrintableCalendars :salaries="employesSelectionnes" :debut="debut" :tachesSemaine="taches" :calendriers="calendriersTaches" />
   </div>
 </template>
@@ -37,6 +37,14 @@ export default {
       this.debut = newDebut
       this.getGapiData()
     },
+    updateEmployesSelectionnes(emp){
+      // console.log('in')
+      if( this.employesSelectionnes.includes(emp) ){
+        this.employesSelectionnes.splice(this.employesSelectionnes.indexOf(emp),1)
+      } else {
+        this.employesSelectionnes.splice(this.employes.indexOf(emp),0,emp)
+      }
+    },
     getDefaultDebut(){
       let now = new Date()
       let ret = new Date()
@@ -54,7 +62,7 @@ export default {
         .then( distEmps => {
           // console.log(employes)
           this.employes = distEmps
-          this.employesSelectionnes = distEmps
+          this.employesSelectionnes = Array.from(distEmps)
         })
         .catch( err => console.log(err) )
     },
