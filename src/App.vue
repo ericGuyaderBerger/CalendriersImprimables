@@ -5,7 +5,7 @@
       Roche &amp; Fils - Calendriers imprimables
     </h1>
     <Selection :debut="debut" :salaries="employes" v-on:update:debut="update($event)"/>
-    <PrintableCalendars :salaries="employes" :debut="debut" :tachesSemaine="taches" :calendriers="calendriersTaches" />
+    <PrintableCalendars :salaries="employesSelectionnes" :debut="debut" :tachesSemaine="taches" :calendriers="calendriersTaches" />
   </div>
 </template>
 
@@ -24,9 +24,9 @@ export default {
     let employes = []
     let taches = []
     let debut = this.getDefaultDebut()
-    // let gapi = {}
+    let employesSelectionnes = []
     let calendriersTaches = []
-    return {employes,taches,calendriersTaches,debut}
+    return {employes,taches,calendriersTaches,debut,employesSelectionnes}
   },
   computed:{
     
@@ -54,6 +54,7 @@ export default {
         .then( distEmps => {
           // console.log(employes)
           this.employes = distEmps
+          this.employesSelectionnes = distEmps
         })
         .catch( err => console.log(err) )
     },

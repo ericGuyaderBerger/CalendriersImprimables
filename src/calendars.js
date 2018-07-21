@@ -234,6 +234,7 @@ let CalendarTools = {
         // ret[dtString].taches = []
       }
       end.setDate(end.getDate() + 5)
+      end.setHours(23,59,59,999)
 
       let allPromises = calendars.map( calName => {
         let calInfosProm = this.calendarInfosFromName(calName);
