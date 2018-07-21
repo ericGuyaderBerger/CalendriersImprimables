@@ -11,7 +11,7 @@
       <div class="col-9 row">
         <p v-for="salarie in salaries" :key="salarie" class="col-3 salarie"
             @click="salarieClick(salarie)">  
-          <SelectionSalarie :salarie="salarie" />
+          <SelectionSalarie :salarie="salarie" :employesSelectionnes="employesSelectionnes" />
         </p>
       </div>
       
@@ -28,7 +28,8 @@ export default {
   components:{SelectionSalarie,SelectionSemaine},
   props: {
     debut: Date,
-    salaries: Array
+    salaries: Array,
+    employesSelectionnes: Array
   },
   data(){
     let semainesAffichables = this.getSemainesAffichables()

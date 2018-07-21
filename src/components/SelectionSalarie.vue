@@ -1,5 +1,5 @@
 <template>
-  <span :class="{inactive:clicks % 2 > 0}" @click="click">
+  <span :class="{inactive: !employesSelectionnes.includes(salarie)}" >
     <i class="fa fa-user"></i>
     {{ salarie }}
   </span>
@@ -7,16 +7,9 @@
 <script>
 export default {
   props:{
-    salarie:String
+    salarie:String,
+    employesSelectionnes:Array
   },
-  data(){
-    return {clicks:0}
-  },
-  methods:{
-    click(){
-      this.clicks++
-    }
-  }
 }
 </script>
 <style scoped>

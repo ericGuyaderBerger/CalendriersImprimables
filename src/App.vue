@@ -4,8 +4,11 @@
       <i class="fa fa-calendar text-danger"></i>
       Roche &amp; Fils - Calendriers imprimables
     </h1>
-    <Selection :debut="debut" :salaries="employes" @update:debut="update($event)" @update:employesSelectionnes="updateEmployesSelectionnes($event)" />
-    <PrintableCalendars :salaries="employesSelectionnes" :debut="debut" :tachesSemaine="taches" :calendriers="calendriersTaches" />
+    <Selection :debut="debut" :salaries="employes" :employesSelectionnes="employesSelectionnes" 
+        @update:debut="update($event)" @update:employesSelectionnes="updateEmployesSelectionnes($event)" />
+    
+    <PrintableCalendars :salaries="employesSelectionnes" :debut="debut" :tachesSemaine="taches" 
+        :calendriers="calendriersTaches" />
   </div>
 </template>
 
