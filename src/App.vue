@@ -54,6 +54,8 @@ export default {
       let jourSem = now.getDay()
       if ( jourSem > 1 ) {
         ret.setDate( now.getDate() + 8 - jourSem )
+      } else if ( jourSem === 0 ) {
+        ret.setDate( now.getDate() + 1  )
       }
       ret.setHours(0,0,0,0)
       // console.log(ret)
