@@ -1,6 +1,15 @@
 <template>
   <div id="selection" class="not-printable">
-    <h2>Options du calendrier à imprimer</h2>
+    <h2>
+      Options du calendrier à imprimer
+      <button class="btn btn-sm btn-success">
+        <i class="fa fa-refresh" @click="refresh()"></i>
+      </button>&nbsp;
+      <button class="btn btn-sm btn-success" @click="print()">
+        <i class="fa fa-print"></i>
+      </button>&nbsp;
+      
+    </h2>
     <div class="row">
       <div class="col-3">
         <p v-for="semaine in semainesAffichables" :key="semaine.libelle" class="semaine"
@@ -36,6 +45,12 @@ export default {
     return {semainesAffichables}
   },
   methods:{
+    print(){
+      this.$emit('print')
+    },
+    refresh(){
+      this.$emit('refresh')
+    },
     getSemainesAffichables(){
       let ret = []
       let now = new Date()

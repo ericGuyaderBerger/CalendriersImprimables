@@ -2,10 +2,11 @@
   <div id="app" class="container">
     <h1 class="not-printable">
       <i class="fa fa-calendar text-danger"></i>
-      Roche &amp; Fils - Calendriers imprimables
+      Roche Fils Nettoyage - Calendriers imprimables
     </h1>
     <Selection :debut="debut" :salaries="employes" :employesSelectionnes="employesSelectionnes" 
-        @update:debut="update($event)" @update:employesSelectionnes="updateEmployesSelectionnes($event)" />
+        @update:debut="update($event)" @update:employesSelectionnes="updateEmployesSelectionnes($event)" 
+        @print="print()" @refresh="refresh()"/>
     
     <PrintableCalendars :salaries="employesSelectionnes" :debut="debut" :tachesSemaine="taches" 
         :calendriers="calendriersTaches" />
@@ -35,6 +36,12 @@ export default {
     
   },
   methods: {
+    print(){
+      window.print()
+    },
+    refresh(){
+      this.getGapiData()
+    },
     update(newDebut){
       // console.log(newDebut)
       this.debut = newDebut
