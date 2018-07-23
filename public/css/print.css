@@ -2,6 +2,11 @@
   size: landscape;
 }
 
+html{
+  height:100%;
+  position:static;
+}
+
 .not-printable{
   display: none;
 }
@@ -13,28 +18,39 @@
 
 .calendar h4{
   font-size:3em;
-  max-height:20mm;
+  /* max-height:20mm;
+  overflow:hidden; */
 }
 
 .container,.row {
   margin:0;
   padding:0;
+  min-width:100%;
+  width:100%;
+  position:static;
+}
+
+.calendar .row:first-of-type{
+  max-height:20mm;
+  overflow:hidden;
+}
+
+
+.calendar .row:nth-child(2){
+  max-height:170mm;
+  overflow:hidden;
 }
 
 .calendar{
-  padding:5mm 7mm;
+  position: static;
   width:297mm;
   height:210mm;
+  page-break-after: always;
 }
 
 .calendar-week{
-  page-break-after: always;
   min-height:170mm;
   height:170mm;
   margin:0;
   padding:0;
-}
-
-.calendar h4{
-  height:15mm;
 }
