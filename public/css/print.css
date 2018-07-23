@@ -29,8 +29,8 @@
 
 .calendar-week{
   page-break-after: always;
-  min-height:180mm;
-  height:180mm;
+  min-height:170mm;
+  height:170mm;
   margin:0;
   padding:0;
 }
