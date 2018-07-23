@@ -13,6 +13,7 @@
 
 .calendar h4{
   font-size:3em;
+  max-height:20mm;
 }
 
 .container,.row {
@@ -20,10 +21,10 @@
   padding:0;
 }
 
-.calendar {
-  margin:5mm 7mm;
-  width:283mm;
-  height:200mm;
+.calendar{
+  padding:5mm 7mm;
+  width:297mm;
+  height:210mm;
 }
 
 .calendar-week{
