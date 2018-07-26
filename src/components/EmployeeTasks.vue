@@ -1,9 +1,9 @@
 <template>
     <div class="taches-employe" v-if="employe.taches.length > 0" :class="{'active': employe.nom.split(' + ').includes(employeCalendrier) }">
       <h6> <i class="fa fa-user" :class="{'fa-users': employe.nom.split(' + ').length > 1 }"></i> {{ employe.nom }} </h6>
-      <div class="row">
+      <div class="row no-gutters justify-content-start">
         <p v-for="tache in employe.taches" :key="tache.index" class="tache col-auto"> 
-          <i class="fa fa-square" :style="{color:tache.couleur}"></i> {{ tache.intitule }}
+          <i class="fa fa-window-minimize fa-rotate-90" :style="{color:tache.couleur}"></i> <span>{{ tache.intitule }}</span>
         </p>
       </div>
       

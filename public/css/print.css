@@ -18,6 +18,7 @@ html{
 
 .taches-employe:not(.active){
   font-size:6pt;
+  opacity: 0.8;
 }
 
 
@@ -38,20 +39,20 @@ html{
 }
 
 .calendar .row:first-of-type{
-  max-height:20mm;
+  max-height:15mm;
   overflow:hidden;
 }
 
 
 .calendar .row:nth-child(2){
-  max-height:190mm;
+  /* max-height:195mm; */
   overflow:hidden;
 }
 
 .calendar{
-  position: static;
+  /* position: static; */
   width:297mm;
-  height:200mm;
+  height:205mm;
   page-break-after: always;
 }
 
@@ -66,10 +67,16 @@ html{
 .taches-employe .row{
   justify-content: flex-start;
   align-items: flex-start;
+  line-height: 1.05em;
 }
 
-.tache{
-  padding:0 1em 0 0.1em
+.tache {
+  padding:0 0.7em 0 0.1em;
+}
+
+.tache span{
+  margin-left:-0.5em;
+  margin-right:0.3em;
 }
 
 .taches-employe {
