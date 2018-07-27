@@ -4,7 +4,6 @@
 
 html{
   height:100%;
-  /* position:static; */
 }
 
 .not-printable{
@@ -16,17 +15,10 @@ html{
   color:#000;
 }
 
-.taches-employes.active{
-  -webkit-print-color-adjust: exact !important;
-  color-adjust: exact  !important;
-  background-color:
-}
-
 .taches-employe:not(.active){
   font-size:6pt;
   opacity: 0.8;
 }
-
 
 .calendar h4{
   font-size:3em;
@@ -41,7 +33,6 @@ html{
   padding:0;
   min-width:100%;
   width:100%;
-  /* position:static; */
 }
 
 .calendar > .row:first-of-type{
@@ -51,19 +42,16 @@ html{
 
 
 .calendar .row:nth-child(2){
-  /* max-height:195mm; */
   overflow:hidden;
 }
 
 .calendar{
-  /* position: static; */
   width:297mm;
   height:200mm;
   page-break-after: always;
 }
 
 .calendar-week{
-  /* min-height:190mm; */
   height:190mm;
   width:287mm;
   margin:0;
@@ -86,5 +74,5 @@ html{
 }
 
 .taches-employe {
-  margin:0.5em 0 0.1em !important;
+  margin:0.5em 0 0.1em;
 }
