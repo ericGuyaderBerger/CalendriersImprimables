@@ -6,7 +6,6 @@
           <i class="fa fa-window-minimize fa-rotate-90" :style="{color:tache.couleur}"></i> <span>{{ tache.intitule }}</span>
         </p>
       </div>
-      
     </div>  
 </template>
 <script>

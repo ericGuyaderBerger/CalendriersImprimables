@@ -16,6 +16,12 @@ html{
   color:#000;
 }
 
+.taches-employes.active{
+  -webkit-print-color-adjust: exact !important;
+  color-adjust: exact  !important;
+  background-color:
+}
+
 .taches-employe:not(.active){
   font-size:6pt;
   opacity: 0.8;
@@ -38,7 +44,7 @@ html{
   /* position:static; */
 }
 
-.calendar .row:first-of-type{
+.calendar > .row:first-of-type{
   max-height:15mm;
   overflow:hidden;
 }
@@ -52,7 +58,7 @@ html{
 .calendar{
   /* position: static; */
   width:297mm;
-  height:205mm;
+  height:200mm;
   page-break-after: always;
 }
 
@@ -80,5 +86,5 @@ html{
 }
 
 .taches-employe {
-  margin:0 0 0.1em 
+  margin:0.5em 0 0.1em !important;
 }
