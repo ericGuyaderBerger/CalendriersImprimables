@@ -55,7 +55,11 @@ export default {
       let ret = []
       let now = new Date()
       let lundi = new Date()
-      lundi.setDate(now.getDate() - (now.getDay() - 1) )
+      if(lundi.getDay() !== 1){
+        lundi.setDate(now.getDate() - (now.getDay() - 1) )
+        
+      }
+      // console.log(lundi)
       // console.log(debutCal)
       for( let i = -3; i < 2; i++ ){
         let debut = new Date()

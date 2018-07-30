@@ -194,9 +194,10 @@ let CalendarTools = {
       let ret = {}
       
       // Crée les 5 jours de la semaine, quoi qu'il arrive
-      for (let i = 0; i <= 4; i++ ){
-        let dt = new Date()
+      for (let i = 1; i <= 5; i++ ){
+        let dt = new Date(start)
         dt.setDate(start.getDate() + i)
+        // console.log(dt)
         let dtString = dt.toISOString().substr(0,10)
         ret[dtString] = []
       }
