@@ -32,15 +32,11 @@
       calendriers: Array
     },
     components:{WeekCalendar},
-    // data(){
-    //   let fin = new Date(this.debut)
-    //   fin.setDate(fin.getDate() + 5)
-    //   return {fin:fin}
-    // },
+
     computed:{
       fin(){
-        let fin = new Date()
-        fin.setDate(this.debut.getDate() + 5 )
+        const nbMsInDay = 8.64e+7
+        let fin = new Date(this.debut.getTime() + 5 * nbMsInDay)
         fin.setHours(23,59,59,999)
         return fin
       }

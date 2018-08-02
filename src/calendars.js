@@ -1,4 +1,5 @@
 const SEP = ' + ';
+const nbMsInDay = 8.64e+7
 
 let CalendarTools = {
   tasksCalendars: ['Chantiers','Containers','Vitres','Ponctuels','Particuliers','Travaux spéciaux','Sous-traitance','Rendez-vous !','Contacts'],
@@ -162,8 +163,9 @@ let CalendarTools = {
   getEmployesDistincts(start){
     return new Promise( (resolve,reject) => {
       let ret = new Set();
-      let end = new Date(start)
-      end.setDate(end.getDate() + 5)
+      let end = new Date(start.getTime() + 5 * nbMsInDay)
+      end.setHours(23,59,59)
+
       let employesProm = this.getEmployes(start,end)
       employesProm.catch( reason => reject(reason) );
       employesProm
@@ -190,20 +192,17 @@ let CalendarTools = {
   getPlanedEvents(start){
     return new Promise( (resolve,reject) => {
       let calendars = [...this.tasksCalendars,this.nomCalendrierMO];
-      let end = new Date(start)
+      let end = new Date(start.getTime() + 5 * nbMsInDay)
+      end.setHours(23,59,59,999)
       let ret = {}
       
       // Crée les 5 jours de la semaine, quoi qu'il arrive
       for (let i = 1; i <= 5; i++ ){
-        let dt = new Date(start)
-        dt.setDate(start.getDate() + i)
-        // console.log(dt)
+        let dt = new Date(start.getTime() + i * nbMsInDay)
         let dtString = dt.toISOString().substr(0,10)
         ret[dtString] = []
       }
-      end.setDate(end.getDate() + 5)
-      end.setHours(23,59,59,999)
-
+      
       let allPromises = calendars.map( calName => {
         let calInfosProm = this.calendarInfosFromName(calName);
         return calInfosProm.then( cal => {

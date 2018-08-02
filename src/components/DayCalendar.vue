@@ -17,7 +17,6 @@
       dateJour(){
         let dt = new Date(this.jour);
         let jours = ["lundi", "mardi","mercredi","jeudi","vendredi","samedi"];
-        // dt.setDate(dt.getDate() + this.jour )
         return jours[dt.getDay() - 1] + ' ' + dt.getDate();
       }
     }

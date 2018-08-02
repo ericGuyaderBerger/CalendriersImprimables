@@ -12,14 +12,7 @@ import DayCalendar from '@/components/DayCalendar.vue'
 export default {
   name:'WeekCalendar',
   components:{DayCalendar},
-  props:['debut','salarie','taches'],
-  methods:{
-    jourIso(j){
-      let date = new Date(this.debut)
-      date.setDate(date.getDate()+j)
-      return date.toISOString().substr(0,10)
-    }
-  }
+  props:['debut','salarie','taches']
 }  
 </script>
 <style scoped>

@@ -53,20 +53,15 @@ export default {
     },
     getSemainesAffichables(){
       let ret = []
+      const nbMsInDay = 8.64e+7 
       let now = new Date()
-      let lundi = new Date()
-      if(lundi.getDay() !== 1){
-        lundi.setDate(now.getDate() - (now.getDay() - 1) )
-        
-      }
-      // console.log(lundi)
-      // console.log(debutCal)
+      let lundi = new Date(now.getTime() - (now.getDay() - 1) * nbMsInDay )
+      
       for( let i = -3; i < 2; i++ ){
-        let debut = new Date()
-        debut.setDate( lundi.getDate() + i * 7 )
+        
+        let debut = new Date( lundi.getTime() + i * 7 * nbMsInDay)
         debut.setHours(0,0,0,0)
         
-        // console.log(debut)
         ret.push({
           debut,
           libelle:'Semaine du ' + debut.toLocaleDateString()
@@ -74,17 +69,13 @@ export default {
       }
       return ret
     },
-  // },
-  // methods:{
     isActiveSalarie(sal){
-      console.log(this.clicks[sal])
       return this.clicks[sal] !== undefined && this.clicks[sal] % 2 > 0
     },
     salarieClick(salarie){
       this.$emit('update:employesSelectionnes',salarie)
     },
     changeDebut(nvDebut){
-      // console.log(nvDebut)
       this.$emit('update:debut',nvDebut)
     }
   }
