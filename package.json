@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "vue-serve": "vue-cli-service serve",
+    "vue-build": "vue-cli-service build",
+    "vue-lint": "vue-cli-service lint",
+    "electron": "electron electron-start",
+    "dev": "concurrently --kill-others \"yarn vue-serve\" \"sleep 15 && cross-env NODE_ENV=DEV yarn electron\"" 
   },
   "dependencies": {
     "electron": "^2.0.6",
@@ -15,6 +17,8 @@
     "@vue/cli-plugin-babel": "^3.0.0-beta.15",
     "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
     "@vue/cli-service": "^3.0.0-beta.15",
+    "concurrently": "^3.6.1",
+    "cross-env": "^5.2.0",
     "vue-template-compiler": "^2.5.16"
   },
   "eslintConfig": {
