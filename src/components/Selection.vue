@@ -57,7 +57,7 @@ export default {
       let now = new Date()
       let lundi = new Date(now.getTime() - (now.getDay() - 1) * nbMsInDay )
       
-      for( let i = -3; i < 2; i++ ){
+      for( let i = -3; i < 3; i++ ){
         
         let debut = new Date( lundi.getTime() + i * 7 * nbMsInDay)
         debut.setHours(0,0,0,0)
