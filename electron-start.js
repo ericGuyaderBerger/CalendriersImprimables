@@ -1,7 +1,10 @@
 const {app,BrowserWindow} = require("electron")
+const {setMenu} = require('./electron-menu.js')
 
 let win
 let url
+
+// url selon mode application
 if (process.env.NODE_ENV === 'DEV') {
   url = 'http://localhost:8080/'
 } else {
@@ -18,4 +21,5 @@ app.on('ready',() => {
   win.on('ready-to-show',() => {
     win.show()
   })
+  setMenu(win)
 })
