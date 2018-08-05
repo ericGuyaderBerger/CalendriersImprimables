@@ -17,6 +17,7 @@
 import PrintableCalendars from './components/PrintableCalendars.vue'
 import Selection from './components/Selection.vue'
 import CalendarTools from './calendars.js'
+const { ipcRenderer } = window.require('electron')
 
 export default {
   name: 'app',
@@ -37,7 +38,8 @@ export default {
   },
   methods: {
     print(){
-      window.print()
+      // window.print()
+      ipcRenderer.send('printing')
     },
     refresh(){
       this.getGapiData()
@@ -120,7 +122,6 @@ export default {
           })
       })
     })
-    
   }
 }
 </script>
