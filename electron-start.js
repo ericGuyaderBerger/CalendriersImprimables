@@ -1,5 +1,6 @@
 const {app,BrowserWindow,ipcMain} = require("electron")
 const {setMenu} = require('./electron-menu.js')
+const PrintingTools = require('./printing-tools')
 
 let win
 let url
@@ -25,5 +26,5 @@ app.on('ready',() => {
 })
 
 ipcMain.on('printing', ()=>{
-  console.log('Impression demandée!')
+  PrintingTools.print(win)
 })
