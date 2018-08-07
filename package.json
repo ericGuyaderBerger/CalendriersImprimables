@@ -7,10 +7,11 @@
     "vue-build": "vue-cli-service build",
     "vue-lint": "vue-cli-service lint",
     "electron": "electron electron-start",
-    "dev": "concurrently --kill-others \"yarn vue-serve\" \"sleep 15 && cross-env NODE_ENV=DEV yarn electron\"" 
+    "dev": "concurrently --kill-others \"yarn vue-serve\" \"sleep 15 && cross-env NODE_ENV=DEV yarn electron\""
   },
   "dependencies": {
     "electron": "^2.0.6",
+    "opn": "^5.3.0",
     "vue": "^2.5.16"
   },
   "devDependencies": {
