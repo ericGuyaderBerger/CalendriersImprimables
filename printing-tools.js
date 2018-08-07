@@ -1,16 +1,19 @@
 const fs = require('fs')
 const { dialog } = require('electron')
 const opn = require('opn')
+const path = require('path')
 
 module.exports = {
   print(browserWindow){
     browserWindow.webContents.print({landscape:true,printBackground:true})
   },
   printToPDF(browserWindow, options = null){
-    let fichier = 'c:/users/eric/desktop/rf-ptpdf.pdf'
+    let fichier = 'rf-ptpdf.pdf'
     if ( options && options.fichier ) {
       fichier = options.fichier
     }
+    
+    
     browserWindow.webContents.printToPDF({landscape:true,printBackground:true}, (err,data) => {
       if(err){
         dialog.showMessageBox(browserWindow,{
@@ -22,14 +25,22 @@ module.exports = {
       }
       fs.writeFile(fichier, data, (error) => {
         if (error) throw error
+        let cheminComplet = path.normalize(path.join(__dirname , fichier))
         dialog.showMessageBox(browserWindow,{
           type:'info',
           message: 'Génération réussie',
-          detail: `Fichier ${fichier} généré correctement!`,
+          detail: `Fichier ${cheminComplet} généré correctement!`,
           buttons: ['OK']
         })
 
         opn(fichier)
+          .catch( err => {
+            dialog.showMessageBox(browserWindow,{
+              type:'error',
+              message:'Impossible d\'ouvrir le fichier PDF généré automatiquement!',
+              detail:err.message
+            })
+          })
       })
     })
   }
