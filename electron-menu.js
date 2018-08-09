@@ -13,7 +13,6 @@ module.exports = {
             label: 'Imprimer...',
             accelerator: isWindows ? 'Ctrl+P' : 'CmdOrCtrl+P',
             click() {
-              // TODO: appeler outil de printing
               PrintingTools.print(window)
             }
           },

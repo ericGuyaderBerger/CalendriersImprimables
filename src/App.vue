@@ -38,14 +38,13 @@ export default {
   },
   methods: {
     print(){
-      // window.print()
-      ipcRenderer.send('printing')
+      let debutFormate = this.debut.toLocaleDateString().replace(/\//gi,'-');
+      ipcRenderer.send('printing',{fichier:`Planning semaine du ${debutFormate}.pdf`})
     },
     refresh(){
       this.getGapiData()
     },
     update(newDebut){
-      // console.log(newDebut)
       this.debut = newDebut
       this.getGapiData()
     },

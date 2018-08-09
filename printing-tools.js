@@ -8,7 +8,7 @@ module.exports = {
     browserWindow.webContents.print({landscape:true,printBackground:true})
   },
   printToPDF(browserWindow, options = null){
-    let fichier = 'rf-ptpdf.pdf'
+    let fichier = 'Planing hebdomadaire.pdf'
     if ( options && options.fichier ) {
       fichier = options.fichier
     }

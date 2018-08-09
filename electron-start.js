@@ -25,6 +25,7 @@ app.on('ready',() => {
   setMenu(win)
 })
 
-ipcMain.on('printing', ()=>{
-  PrintingTools.print(win)
+ipcMain.on('printing', (ev,args)=>{
+  // TODO: déterminer le nom du fichier PDF à générer à partir des arguments transmis
+  PrintingTools.printToPDF(win, args)
 })
