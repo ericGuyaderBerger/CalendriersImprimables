@@ -20,7 +20,12 @@ module.exports = {
             label: 'Imprimer en PDF...',
             accelerator: isWindows ? 'Ctrl+Shift+P' : 'CmdOrCtrl+Shift+P',
             click() {
-              PrintingTools.printToPDF(window)
+              window.webContents.executeJavaScript('document.querySelector(\'.semaine span:not(.inactive)\').innerText',
+                (semaine) => {
+                  let semainePourFichier = semaine.replace(/\//g,'-').toLowerCase().trim()
+                  PrintingTools.printToPDF(window,{fichier:`Planning ${semainePourFichier}.pdf`})
+                }
+              )
             }
           },
           {
