@@ -15,14 +15,12 @@ if (process.env.NODE_ENV === 'DEV') {
 
 app.on('ready',() => {
   win = new BrowserWindow({
-    //fullscreen:true,
     show:false,
-    resizable:true,
-    closable:true,
     fullscreenWindowTitle:true
   });
   win.loadURL(url)
   win.on('ready-to-show',() => {
+    win.maximize()
     win.show()
   })
   setMenu(win)
