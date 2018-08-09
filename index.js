@@ -16,12 +16,17 @@ if (process.env.NODE_ENV === 'DEV') {
 app.on('ready',() => {
   win = new BrowserWindow({
     show:false,
-    fullscreenWindowTitle:true
+    fullscreenWindowTitle:true,
+    webPreferences:{
+      devTools:true,
+      webSecurity:false
+    }
   });
   win.loadURL(url)
   win.on('ready-to-show',() => {
     win.maximize()
     win.show()
+    win.webContents.openDevTools()
   })
   setMenu(win)
 })
