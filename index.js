@@ -14,7 +14,8 @@ if (process.env.NODE_ENV === 'DEV') {
   url = 'http://localhost:8080/'
 } else {
   expApp = express()
-  expApp.use( express.static( path.join(process.cwd(),'dist') ) )
+  // console.log( path.join(app.getAppPath(),'/dist') )
+  expApp.use( express.static( path.join(app.getAppPath(),'/dist') ) )
   expServer = expApp.listen(3000)
   url = `http://localhost:3000/`
 }
@@ -25,15 +26,15 @@ app.on('ready',() => {
     show:false,
     fullscreenWindowTitle:true,
     webPreferences:{
-      devTools:true,
-      webSecurity:false
+      // devTools:true,
+      // webSecurity:false
     }
   });
   win.loadURL(url)
   win.on('ready-to-show',() => {
     win.maximize()
     win.show()
-    win.webContents.openDevTools()
+    // win.webContents.openDevTools()
   })
   setMenu(win)
 })

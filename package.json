@@ -52,6 +52,9 @@
   ],
   "build": {
     "appId": "com.EricGuyaderBerger.CalendriersImprimables",
-    "files": "!build-assets${/*}"
+    "files": ["!build-assets${/*}","!build${/*}"],
+    "directories": {
+      "output": "build"
+    }
   }
 }
