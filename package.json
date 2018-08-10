@@ -24,6 +24,7 @@
     "concurrently": "^3.6.1",
     "cross-env": "^5.2.0",
     "electron": "^2.0.6",
+    "electron-builder": "^20.27.1",
     "vue-template-compiler": "^2.5.16"
   },
   "eslintConfig": {
@@ -52,7 +53,10 @@
   ],
   "build": {
     "appId": "com.EricGuyaderBerger.CalendriersImprimables",
-    "files": ["!build-assets${/*}","!build${/*}"],
+    "files": [
+      "!build-assets${/*}",
+      "!build${/*}"
+    ],
     "directories": {
       "output": "build"
     }
