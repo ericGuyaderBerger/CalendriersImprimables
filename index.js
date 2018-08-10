@@ -1,15 +1,22 @@
 const {app,BrowserWindow,ipcMain} = require("electron")
 const {setMenu} = require('./electron-menu.js')
 const PrintingTools = require('./printing-tools')
+const express = require('express')
+const path = require('path')
 
 let win
 let url
+let expApp
+let expServer
 
 // url selon mode application
 if (process.env.NODE_ENV === 'DEV') {
   url = 'http://localhost:8080/'
 } else {
-  url = `file://${process.cwd()}/dist/index.html`
+  expApp = express()
+  expApp.use( express.static( path.join(process.cwd(),'dist') ) )
+  expServer = expApp.listen(3000)
+  url = `http://localhost:3000/`
 }
 
 
@@ -31,7 +38,12 @@ app.on('ready',() => {
   setMenu(win)
 })
 
+app.on('window-all-closed',() => {
+  if( expServer ){
+    expServer.close()
+  }
+})
+
 ipcMain.on('printing', (ev,args)=>{
-  // TODO: déterminer le nom du fichier PDF à générer à partir des arguments transmis
   PrintingTools.printToPDF(win, args)
 })

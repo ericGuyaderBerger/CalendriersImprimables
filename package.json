@@ -1,7 +1,7 @@
 {
   "name": "roche-fils-calendriers-solution",
   "productName": "Calendriers Imprimables",
-  "author":"Eric Guyader",
+  "author": "Eric Guyader",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,7 @@
     "package": "yarn vue-build && build"
   },
   "dependencies": {
+    "express": "^4.16.3",
     "opn": "^5.3.0",
     "vue": "^2.5.16"
   },
@@ -20,9 +21,9 @@
     "@vue/cli-plugin-babel": "^3.0.0-beta.15",
     "@vue/cli-plugin-eslint": "^3.0.0-beta.15",
     "@vue/cli-service": "^3.0.0-beta.15",
-    "electron": "^2.0.6",
     "concurrently": "^3.6.1",
     "cross-env": "^5.2.0",
+    "electron": "^2.0.6",
     "vue-template-compiler": "^2.5.16"
   },
   "eslintConfig": {
@@ -49,7 +50,7 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-  "build":{
+  "build": {
     "appId": "com.EricGuyaderBerger.CalendriersImprimables",
     "files": "!build-assets${/*}"
   }

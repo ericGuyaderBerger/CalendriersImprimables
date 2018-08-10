@@ -106,19 +106,23 @@ export default {
   mounted(){
     // this.debut = this.getDefaultDebut()
     const gapi = window.gapi
+    
     gapi.load('client:auth2', () => {
       gapi.client.init({
-        apiKey: 'AIzaSyCQ3xCsHPiDPaOI2lzdlEAENsiTHZn-Tcs',
-        clientId: '554100630055-sblc7jocm9a76cl96craekbdl8kdrci0.apps.googleusercontent.com',
-        // apiKey: 'AIzaSyDXwlyHiQd6xs-vZXh_-8rtoauaNCVJmhQ',
-        // clientId: '841295231115-cl4bkln0po9eelta3mv32vsskek0u74b.apps.googleusercontent.com',
+        // apiKey: 'AIzaSyCQ3xCsHPiDPaOI2lzdlEAENsiTHZn-Tcs',
+        // clientId: '554100630055-sblc7jocm9a76cl96craekbdl8kdrci0.apps.googleusercontent.com',
+        apiKey: 'AIzaSyDXwlyHiQd6xs-vZXh_-8rtoauaNCVJmhQ',
+        clientId: '841295231115-cl4bkln0po9eelta3mv32vsskek0u74b.apps.googleusercontent.com',
         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
         scope: 'https://www.googleapis.com/auth/calendar.readonly'
       }).then( () => {
+        
         CalendarTools.logIn(gapi)
           .then( () => {
+              console.log(gapi)
               this.getGapiData()
           })
+          .catch ( err => console.log(err) )
       })
     })
   }
