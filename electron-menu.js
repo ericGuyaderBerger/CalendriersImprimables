@@ -29,7 +29,7 @@ module.exports = {
             }
           },
           {
-            label: isWindows ? 'Quitter' : 'Quitter' + app.getName(),
+            label: isWindows ? 'Quitter' : 'Quitter ' + app.getName(),
             accelerator: isWindows ? 'Alt+F4' : 'CmdOrCtrl+Q',
             role: 'quit'
           }
