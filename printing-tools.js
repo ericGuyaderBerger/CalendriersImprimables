@@ -2,6 +2,7 @@ const fs = require('fs')
 const { dialog } = require('electron')
 const opn = require('opn')
 const path = require('path')
+const homedir = require('os').homedir();
 
 module.exports = {
   print(browserWindow){
@@ -23,9 +24,17 @@ module.exports = {
         })
         return
       }
-      fs.writeFile(fichier, data, (error) => {
-        if (error) throw error
-        let cheminComplet = path.normalize(path.join(__dirname , fichier))
+      let cheminComplet = path.normalize(path.join(homedir , fichier))
+      fs.writeFile(cheminComplet, data, (error) => {
+        if (error) {
+          dialog.showMessageBox(browserWindow,{
+            type:'error',
+            message:`Impossible de générer le fichier ${cheminComplet} !`,
+            detail:err.message
+          })
+          return
+        }
+        
         dialog.showMessageBox(browserWindow,{
           type:'info',
           message: 'Génération réussie',
@@ -33,7 +42,7 @@ module.exports = {
           buttons: ['OK']
         })
 
-        opn(fichier)
+        opn(cheminComplet)
           .catch( err => {
             dialog.showMessageBox(browserWindow,{
               type:'error',
